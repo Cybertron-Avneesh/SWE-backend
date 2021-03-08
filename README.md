@@ -16,6 +16,8 @@ HIT SAVE
 * make a new database named 'amsaaa'
 HIT SAVE
 
+### Setup node
+
 * open terminal
 * `git clone https://github.com/Cybertron-Avneesh/SWE-backend.git`
 * `cd SWE-backend`
