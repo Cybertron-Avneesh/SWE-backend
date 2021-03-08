@@ -11,6 +11,11 @@
 `Password : <your PG password>`<br> 
 HIT SAVE
 
+### make database
+
+* make a new database named 'amsaaa'
+HIT SAVE
+
 * open terminal
 * `git clone https://github.com/Cybertron-Avneesh/SWE-backend.git`
 * `cd SWE-backend`
