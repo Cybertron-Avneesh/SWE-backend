@@ -15,5 +15,5 @@ HIT SAVE
 * `git clone https://github.com/Cybertron-Avneesh/SWE-backend.git`
 * `cd SWE-backend`
 * `npm init -y`
-*  Open index.js change password in 'pool' with <your PG password>
+*  Open index.js change password in 'pool' with "your PG password"
 * `node index.js`
