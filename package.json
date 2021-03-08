@@ -1,0 +1,23 @@
+{
+  "name": "SWE-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cybertron-Avneesh/SWE-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cybertron-Avneesh/SWE-backend/issues"
+  },
+  "homepage": "https://github.com/Cybertron-Avneesh/SWE-backend#readme",
+  "dependencies": {
+    "pg": "^8.5.1"
+  }
+}
