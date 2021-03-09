@@ -1,34 +1,26 @@
 const { createdb } = require('./createDatabase.js');
+const { fillDummydata } = require('./dummydata.js');
+const { verifyUser } = require('./auth/login.js');
 
-const { Pool } = require('pg');
+
+
 const express = require('express');
 const app = express();
 app.use(express.json());
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'amsaaa',
-    password: '<your PG password>',
-    port: 5433
 
+app.get('/createdb', createdb);
+app.get('/filldummydata', fillDummydata);
+app.get('/login', verifyUser);
+
+
+
+
+
+const PORT = 5440;
+app.listen(PORT, () => {
+    console.log(`Listening on http://localhost:${PORT}`)
 })
 
-async function init() {
-    var client;
-    try {
-        client = await pool.connect();
-        console.log("CONNECTED");
-    } catch (err) {
-        console.error(err);
-    }
-
-    createdb(client);
-
-    app.listen(5440, () => {
-        console.log("Listening on port 4000")
-    })
-}
-init();
 
 
