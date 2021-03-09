@@ -52,10 +52,10 @@ Enter user_id and password for authentication
 Enter user_id,name,photo,admin_level for adding user<br>
 (For now treat photo as varchar)
 <br><br>
->Admin Level
->0:Operating User
->1:Priviledged User
->2:System Admin
+>Admin Level<br>
+>0:Operating User<br>
+>1:Priviledged User<br>
+>2:System Admin<br>
 
 **USE POSTMAN**<br>
 ```
