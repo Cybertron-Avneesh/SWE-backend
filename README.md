@@ -27,18 +27,18 @@ HIT SAVE
 
 ## Routs
 
-### 1. **https://localhost:5440/createdb**
+1. `/createdb`
 
 IT will create all tables
 
-### 2. **https://localhost:5440/filldummydata**
+2. `/filldummydata`
 
 To fill some dummy data
 
-### 3. **https://localhost:5440/login**
+3. `/login`
 
 Enter user_id and password for authentication
-<br>
+<br><br>
 **USE POSTMAN**<br>
 ```
 {
