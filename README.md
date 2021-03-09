@@ -47,3 +47,22 @@ Enter user_id and password for authentication
     "access_level":"2"
 }
 ```
+3. `/createuser`
+
+Enter user_id,name,photo,admin_level for adding user<br>
+(For now treat photo as varchar)
+<br><br>
+>Admin Level
+>0:Operating User
+>1:Priviledged User
+>2:System Admin
+
+**USE POSTMAN**<br>
+```
+{
+    "user_id":"iib2019052",
+    "name":"OP1",
+    "photo":"",
+    "admin_level":"0"
+}
+```

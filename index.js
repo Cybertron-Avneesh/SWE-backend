@@ -1,6 +1,6 @@
 const { createdb } = require('./createDatabase.js');
 const { fillDummydata } = require('./dummydata.js');
-const { verifyUser } = require('./auth/login.js');
+const { verifyUser, createUser } = require('./auth/index.js');
 
 
 
@@ -12,6 +12,8 @@ app.use(express.json());
 app.get('/createdb', createdb);
 app.get('/filldummydata', fillDummydata);
 app.get('/login', verifyUser);
+app.get('/createuser', createUser);
+
 
 
 
