@@ -24,7 +24,8 @@ HIT SAVE
 * `npm init -y`
 *  Open utils/db.js change password in 'pool' with "your PG password"
 * `nodemon index.js`
-
+* for installing mocha & chai (unit testing)
+* `npm install mocha chai --save-dev`
 ## Routs
 
 1. `/createdb`
