@@ -22,7 +22,7 @@ HIT SAVE
 * `git clone https://github.com/Cybertron-Avneesh/SWE-backend.git`
 * `cd SWE-backend`
 * `npm init -y`
-*  Open utils/db.js change password in 'pool' with "your PG password"
+*  Open utils/config.js change password in 'pool' with "your PG password"
 * `nodemon index.js`
 * for installing mocha & chai (unit testing)
 * `npm install mocha chai --save-dev`
@@ -65,5 +65,45 @@ Enter user_id,name,photo,admin_level for adding user<br>
     "name":"OP1",
     "photo":"",
     "admin_level":"0"
+}
+```
+
+4. `/listuser`
+
+Enter admin_level for viewing Filtered Users List<br>
+<br><br>
+>Admin Level<br>
+>0: View Operating User<br>
+>1:View Priviledged User<br>
+>2:View System Admin<br>
+>3:View All Users<br>
+
+**USE POSTMAN**<br>
+```
+Expected json
+{
+    "my_id":"iib2019050",
+    "has_access":"0",
+    "name":"Mr.X",
+    "my_level":2,
+    "admin_level":1
+}
+```
+5. `/permission`
+
+**ONLY FOR PREVILEDGED USERS**<br><br>
+
+Enter user_id of operating user and value of 'has_access'<br>
+<br><br>
+
+**USE POSTMAN**<br>
+```
+Expected json
+{
+    "my_id":"iib2019051",
+    "has_access":"0/1",
+    "name":"",
+    "my_level":1,
+    "user_id":"iib2019052"
 }
 ```

@@ -1,12 +1,10 @@
-const { Pool } = require('pg');
+const { pool } = require('./config.js');
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'amsaaa',
-    password: 'your PG password',
-    port: 5433
-
-});
-
-exports.pool = pool;
+exports.Client = async function () {
+    try {
+        client = await pool.connect();
+        return client;
+    } catch (err) {
+        return res.status(503).end("Server Error,Please try again after some time");
+    }
+}

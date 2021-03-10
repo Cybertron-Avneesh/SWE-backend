@@ -1,4 +1,4 @@
-const { pool } = require('./utils/db.js');
+const { pool } = require('./utils/config.js');
 
 
 exports.fillDummydata = async function (req, res) {

@@ -1,41 +1,37 @@
-const { pool } = require('./../utils/db.js');
+const { pool } = require('../../utils/config.js');
+const { Client } = require('../../utils/db.js');
 
-async function getClient() {
-    try {
-        client = await pool.connect();
-        return client;
-    } catch (err) {
-        return res.status(503).end("Server Error,Please try again after some time");
-    }
-}
+const { createlog, getuserType } = require('../logs.js');
 
 exports.verifyUser = async function (req, res) {
-    const username = req.body.username;
+    const user_id = req.body.user_id;
     const password = req.body.password;
     const admin_level = req.body.admin_level;
+    const log_message = "Login";
 
 
-    if (!username || !password) {
+    if (!user_id || !password) {
 
-        return res.status(400).send({ msg: 'usename and password are mandatory' });
+        return res.status(400).send({ msg: 'User ID and password are mandatory' });
     }
 
-    const client = await getClient();
+    const client = await Client();
     var data;
 
 
     await client
-        .query(`SELECT * FROM ldap NATURAL INNER JOIN user_table WHERE user_id=$1 AND password=$2 AND has_access=1 AND admin_level=$3;`, [username, password, admin_level])
+        .query(`SELECT * FROM ldap NATURAL INNER JOIN user_table WHERE user_id=$1 AND password=$2 AND has_access=1 AND admin_level=$3;`, [user_id, password, admin_level])
         .then((resData) => {
             data = resData;
         })
         .catch(err => console.log(`${err}`))
 
     await client.end();
-    console.log(data)
+
+
 
     if (data.rows.length == 1) {
-        return res
+        res
             .status(200)
             .json({
                 data: data.rows[0].name,
@@ -43,8 +39,11 @@ exports.verifyUser = async function (req, res) {
                 unique_id: data.rows[0].unique_id,
             })
             .end();
+
+        createlog(user_id, data.rows[0].name, getuserType(admin_level), log_message);
+
     } else {
-        return res
+        res
             .status(400)
             .json({
                 msg: "Authentication Failed"
@@ -60,7 +59,7 @@ exports.createUser = async function (req, res) {
     const name = req.body.name;
     const photo = req.body.photo;
     const admin_level = req.body.admin_level;
-
+    const log_message = "New Message Added"
 
 
     if (!user_id || !name || !admin_level) {
@@ -68,7 +67,7 @@ exports.createUser = async function (req, res) {
         return res.status(400).send({ msg: 'usename,password and Admin level are mandatory' });
     }
 
-    const client = await getClient();
+    const client = await Client();
     var data;
 
 
@@ -79,18 +78,24 @@ exports.createUser = async function (req, res) {
         })
         .catch(err => console.log(`${err}`))
 
-    console.log(`INSERT INTO user_table (unique_id,name,photo,admin_level,has_access) VALUES (${data.rows[0].unique_id},${name},${photo},${admin_level},1)`);
+
     if (data.rows.length == 1) {
         await client
             .query(`INSERT INTO user_table (unique_id,name,admin_level,has_access) VALUES (${data.rows[0].unique_id},'${name}',${admin_level},1);`)
-            .then(resData => res.status(200).send("User Added"))
+            .then(resData => {
+                res.status(200).send("User Added");
+                createlog(user_id, name, getuserType(admin_level), log_message);
+            })
             .catch(err => {
                 console.error(err);
                 res.status(400).send(`${err}`);
             });
+        await client.end();
 
         return;
     } else {
+        await client.end();
+
         return res
             .status(400)
             .json({
@@ -98,5 +103,7 @@ exports.createUser = async function (req, res) {
             })
             .end();
     }
+
+
 
 }
