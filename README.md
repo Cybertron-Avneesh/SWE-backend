@@ -22,6 +22,8 @@ HIT SAVE
 * `git clone https://github.com/Cybertron-Avneesh/SWE-backend.git`
 * `cd SWE-backend`
 * `npm init -y`
+* `npm i pg`
+* `npm i nodemon`
 *  Open utils/config.js change password in 'pool' with "your PG password"
 * `nodemon index.js`
 * for installing mocha & chai (unit testing)
@@ -45,7 +47,7 @@ Enter user_id and password for authentication
 {
     "username":"iib2019050",
     "password":"iib2019050",
-    "access_level":"2"
+    "admin_level":"2"
 }
 ```
 3. `/createuser`
