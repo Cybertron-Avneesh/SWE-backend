@@ -4,7 +4,7 @@
   "description": "## How To run * Download pgadmin version 13.2 from `https://www.enterprisedb.com/downloads/postgres-postgresql-downloads`<br> * Run It * Make a new server<br> ### config `Name : localhost`<br>  `Host name/addr : 127.0.0.1`<br>  `Port : 5433`<br>  `Password : <your PG password>`<br>  HIT SAVE",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha './test/test.js'"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,12 @@
   },
   "homepage": "https://github.com/Cybertron-Avneesh/SWE-backend#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.3.3",
+    "mocha": "^8.3.1"
+  }
 }
