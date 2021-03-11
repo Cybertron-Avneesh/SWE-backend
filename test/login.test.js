@@ -23,7 +23,7 @@ describe('Login ', function () {
     it("verifies  valid log in details", async function () {
 
         const result = await app.verifyUser({ body: { user_id: "iib2019050", password: "iib2019050", admin_level: 2 } }, res);
-   //     console.log(result);
+     // console.log(result);
         assert.equal(result.data, "Mr.X");
 
     });
@@ -35,6 +35,15 @@ describe('Login ', function () {
         assert.deepEqual(result, { msg: 'Authentication Failed' });
 
     });
+    it("verifies  empty details", async function () {
+
+        const result = await app.verifyUser({ body: {  password: "iib2019050", admin_level: 2 } }, res);
+     // console.log(result);
+      assert.deepEqual(result, { msg: 'User ID and password are mandatory' });
+     
+
+    });
+
 });
 
 // describe('Login', function () {

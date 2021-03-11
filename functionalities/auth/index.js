@@ -14,8 +14,8 @@ exports.verifyUser = async function (req, res) {
     if (!user_id || !password) {
 
        
-        return res.status(400).send({ msg: 'User ID and password are mandatory' });
-        
+         res.status(400).send({ msg: 'User ID and password are mandatory' });
+        return { msg: 'User ID and password are mandatory'  }
     }
 
     const client = await Client();
