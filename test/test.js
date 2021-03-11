@@ -38,8 +38,8 @@ describe('Login ', function () {
 
     //expect(res).to.have.property("msg");
     expect(data).to.be.an('Object');
-  }
-  );
+
+  });
 });
 
 // describe('Login', function () {
