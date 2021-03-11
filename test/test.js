@@ -22,7 +22,7 @@ describe('Login ', function () {
     const res = await app.verifyUser({ body: { password: "iib2019050", admin_level: 2 } });
     // res =app.verifyUser('{username:" ",password:"iib2019050",admin_level:2}');
     
-   assert.equal(res,'usename and password are mandatory');
+    assert.deepEqual(res, { msg: 'usename and password are mandatory' });
     //expect(res).to.have.property("msg");
    // expect(res).to.be.an('Object');
   }
