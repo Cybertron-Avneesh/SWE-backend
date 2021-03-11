@@ -13,7 +13,9 @@ exports.verifyUser = async function (req, res) {
 
     if (!user_id || !password) {
 
+       
         return res.status(400).send({ msg: 'User ID and password are mandatory' });
+        
     }
 
     const client = await Client();
@@ -42,6 +44,7 @@ exports.verifyUser = async function (req, res) {
             .end();
 
         createlog(user_id, data.rows[0].name, getuserType(admin_level), log_message);
+    
         return {
             data: data.rows[0].name,
             photo: data.rows[0].photo,
