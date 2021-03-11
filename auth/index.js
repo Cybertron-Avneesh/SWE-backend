@@ -17,7 +17,7 @@ exports.verifyUser = async function (req, res) {
 
     if (!username || !password) {
         // res.status(400).send({ msg: 'usename and password are mandatory' });
-        return { msg: 'usename and password are mandatory' };
+        return 'usename and password are mandatory';
 
     }
 
