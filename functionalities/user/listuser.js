@@ -1,6 +1,7 @@
 const { pool } = require('../../utils/config.js');
 const { Client } = require('../../utils/db.js');
 
+
 const { createlog, getuserType } = require('../logs.js');
 
 exports.listUser = async function (req, res) {
@@ -24,8 +25,9 @@ exports.listUser = async function (req, res) {
                     users: response.rows
                 })
                 .end();
-
             createlog(my_id, name, getuserType(my_level), log_message);
+            return { users: response.rows }
+
 
         })
         .catch(err => {
@@ -36,5 +38,7 @@ exports.listUser = async function (req, res) {
                     msg: 'Cannot Get Users List'
                 })
                 .end();
+            return { msg: 'Cannot Get Users List' }
+
         });
 }

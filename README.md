@@ -8,7 +8,7 @@
 `Name : localhost`<br> 
 `Host name/addr : 127.0.0.1`<br> 
 `Port : 5433`<br> 
-`Password : <your PG password>`<br> 
+`Password : <password>`<br> 
 HIT SAVE
 
 ### make database
@@ -24,7 +24,6 @@ HIT SAVE
 * `npm init -y`
 * `npm i pg`
 * `npm i nodemon`
-*  Open utils/config.js change password in 'pool' with "your PG password"
 * `nodemon index.js`
 * for installing mocha & chai (unit testing)
 * `npm install mocha chai --save-dev`

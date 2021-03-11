@@ -1,6 +1,7 @@
 const { pool } = require('../../utils/config.js');
 const { Client } = require('../../utils/db.js');
 
+
 const { createlog, getuserType } = require('../logs.js');
 
 exports.verifyUser = async function (req, res) {
@@ -36,11 +37,16 @@ exports.verifyUser = async function (req, res) {
             .json({
                 data: data.rows[0].name,
                 photo: data.rows[0].photo,
-                unique_id: data.rows[0].unique_id,
+                unique_id: data.rows[0].unique_id
             })
             .end();
 
         createlog(user_id, data.rows[0].name, getuserType(admin_level), log_message);
+        return {
+            data: data.rows[0].name,
+            photo: data.rows[0].photo,
+            unique_id: data.rows[0].unique_id
+        }
 
     } else {
         res
@@ -49,6 +55,8 @@ exports.verifyUser = async function (req, res) {
                 msg: "Authentication Failed"
             })
             .end();
+
+        return { msg: "Authentication Failed" }
     }
 
 
