@@ -16,8 +16,9 @@ exports.verifyUser = async function (req, res) {
 
 
     if (!username || !password) {
+        // res.status(400).send({ msg: 'usename and password are mandatory' });
+        return { msg: 'usename and password are mandatory' };
 
-        return res.status(400).send({ msg: 'usename and password are mandatory' });
     }
 
     const client = await getClient();
@@ -35,7 +36,7 @@ exports.verifyUser = async function (req, res) {
     console.log(data)
 
     if (data.rows.length == 1) {
-        return res
+        res
             .status(200)
             .json({
                 data: data.rows[0].name,
@@ -43,6 +44,11 @@ exports.verifyUser = async function (req, res) {
                 unique_id: data.rows[0].unique_id,
             })
             .end();
+        return {
+            data: data.rows[0].name,
+            photo: data.rows[0].photo,
+            unique_id: data.rows[0].unique_id,
+        }
     } else {
         return res
             .status(400)

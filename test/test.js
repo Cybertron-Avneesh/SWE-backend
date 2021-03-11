@@ -19,7 +19,7 @@ var should = require('chai').should();
 describe('Login ', function () {
   it("verifies log in details", async function () {
 
-    const res = await app.verifyUser('{ username: "asas ", password: "iib2019050", admin_level: 2 }');
+    const res = await app.verifyUser({ body: { password: "iib2019050", admin_level: 2 } });
     // res =app.verifyUser('{username:" ",password:"iib2019050",admin_level:2}');
 
     //expect(res).to.have.property("msg");
