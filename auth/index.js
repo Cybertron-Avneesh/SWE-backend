@@ -1,6 +1,6 @@
 const { pool } = require('./../utils/db.js');
 
-async function getClient() {
+async function getClient(res) {
     try {
         client = await pool.connect();
         return client;
@@ -16,12 +16,12 @@ exports.verifyUser = async function (req, res) {
 
 
     if (!username || !password) {
-        // res.status(400).send({ msg: 'usename and password are mandatory' });
+        res.status(400).send({ msg: 'usename and password are mandatory' });
         return { msg: 'usename and password are mandatory' };
 
     }
 
-    const client = await getClient();
+    const client = await getClient(res);
     var data;
 
 
@@ -33,7 +33,7 @@ exports.verifyUser = async function (req, res) {
         .catch(err => console.log(`${err}`))
 
     await client.end();
-    console.log(data)
+    // console.log(res)
 
     if (data.rows.length == 1) {
         res
