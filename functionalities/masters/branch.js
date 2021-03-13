@@ -33,10 +33,12 @@ async function addBranch(req, res) {
         .then(response => {
             res.status(200).send(`Program : ${branch_name} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+            return { msg: log_message}
         })
         .catch(err => {
             res.status(400).send("Unable to add branch")
             console.log(`programAddError : ${err}`)
+            return { msg: "error"}
         })
 
     await client.end();

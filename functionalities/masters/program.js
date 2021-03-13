@@ -11,10 +11,21 @@ exports.Program = async function (req, res) {
     my_id = req.body.my_id;
     my_level = req.body.my_level;
 
-    if (action == 1) addProgram(req, res)
-    else if (action == 2) listProgram(req, res)
-    else if (action == 3) updateProgram(req, res)
-    else if (action == 4) deleteProgram(req, res)
+    if (action == 1) {
+        var addProgramStatus = await addProgram(req, res);
+
+        return addProgramStatus;
+    }
+    else if (action == 2) {
+
+        var listProgramStatus = listProgram(req, res)
+        return listProgramStatus;
+    }
+    else if (action == 3) {
+        var updateProgramStatus = updateProgram(req, res);
+        return updateProgramStatus;
+    }
+    else if (action == 4) return deleteProgram(req, res)
 
 
 }
@@ -26,18 +37,24 @@ async function addProgram(req, res) {
 
 
     const client = await Client();
-
+    var ret
     await client
         .query('INSERT INTO program VALUES($1,$2)', [program_id, program_name])
         .then(response => {
             res.status(200).send(`Program : ${program_name} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+
+            ret = { msg: "programm added" };
+
         })
         .catch(err => {
             res.status(400).send("Unable to add program")
             console.log(`programAddError : ${err}`)
+            ret = { msg: "error " }
+
         })
     await client.end();
+    return ret;
 
 }
 async function listProgram(req, res) {
@@ -46,7 +63,7 @@ async function listProgram(req, res) {
 
 
     const client = await Client();
-
+    var ret;
     await client
         .query('SELECT * FROM program')
         .then(response => {
@@ -57,11 +74,14 @@ async function listProgram(req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg: "Listing succesfull" }
         })
         .catch(err => {
             res.status(400).send("Unable to list programs")
+            ret = { msg: "Listing unsuccessful" }
         })
     await client.end();
+    return ret;
 
 }
 async function updateProgram(req, res) {
@@ -71,17 +91,22 @@ async function updateProgram(req, res) {
 
 
     const client = await Client();
-
+    var ret
     await client
         .query('UPDATE program SET program_name=$2  WHERE program_id=$1', [program_id, program_name])
         .then(response => {
             res.status(200).send(`Program : ${program_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+            ret ={ msg : "Update Successfull"}
         })
         .catch(err => {
             res.status(400).send("Unable to update program")
+            ret ={ msg : "Update unsuccessfull"}
         })
+
     await client.end();
+
+    return ret;
 
 }
 async function deleteProgram(req, res) {
