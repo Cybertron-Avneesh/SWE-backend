@@ -7,7 +7,6 @@ exports.grantRevoke = async function (req, res) {
     const has_access = req.body.has_access;
     const user_id = req.body.user_id;
     const my_id = req.body.my_id;
-    const name = req.body.name;
     const admin_level = req.body.admin_level;
 
     var log_message;
@@ -27,7 +26,7 @@ exports.grantRevoke = async function (req, res) {
                     msg: log_message
                 })
                 .end();
-            createlog(my_id, name, getuserType(admin_level), log_message);
+            createlog(my_id, getuserType(admin_level), log_message);
         })
         .catch(err => {
             console.log(`${err}`)

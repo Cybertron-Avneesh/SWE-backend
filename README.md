@@ -4,11 +4,11 @@
 * Download pgadmin version 13.2 from `https://www.enterprisedb.com/downloads/postgres-postgresql-downloads`<br>
 * Run It
 * Make a new server<br>
-### config
+### server config
 `Name : localhost`<br> 
 `Host name/addr : 127.0.0.1`<br> 
 `Port : 5433`<br> 
-`Password : <password>`<br> 
+`Password : password`<br> 
 HIT SAVE
 
 ### make database
@@ -44,7 +44,7 @@ Enter user_id and password for authentication
 **USE POSTMAN**<br>
 ```
 {
-    "username":"iib2019050",
+    "user_id":"iib2019050",
     "password":"iib2019050",
     "admin_level":"2"
 }
@@ -55,13 +55,15 @@ Enter user_id,name,photo,admin_level for adding user<br>
 (For now treat photo as varchar)
 <br><br>
 >Admin Level<br>
->0:Operating User<br>
->1:Priviledged User<br>
->2:System Admin<br>
+>0 : Operating User<br>
+>1 : Priviledged User<br>
+>2 : System Admin<br>
 
 **USE POSTMAN**<br>
 ```
 {
+    "my_id":"iib2019050",
+    "my_level":2,
     "user_id":"iib2019052",
     "name":"OP1",
     "photo":"",
@@ -74,18 +76,16 @@ Enter user_id,name,photo,admin_level for adding user<br>
 Enter admin_level for viewing Filtered Users List<br>
 <br><br>
 >Admin Level<br>
->0: View Operating User<br>
->1:View Priviledged User<br>
->2:View System Admin<br>
->3:View All Users<br>
+>0 : View Operating User<br>
+>1 : View Priviledged User<br>
+>2 : View System Admin<br>
+>3 : View All Users<br>
 
 **USE POSTMAN**<br>
 ```
 Expected json
 {
     "my_id":"iib2019050",
-    "has_access":"0",
-    "name":"Mr.X",
     "my_level":2,
     "admin_level":1
 }
@@ -103,8 +103,26 @@ Expected json
 {
     "my_id":"iib2019051",
     "has_access":"0/1",
-    "name":"",
     "my_level":1,
     "user_id":"iib2019052"
 }
 ```
+
+6. `/masters/create/program`
+
+Route is self explanatory<br>
+
+**USE POSTMAN**<br>
+```
+Expected json
+{
+    "my_id":"iib2019051",
+    "my_level":1,
+    "program_id":"B.Tech",
+    "program_name":"Bachelor of Technology"
+}
+```
+
+7. `/masters/create/branch`
+8. `/masters/create/semester`
+9. `/masters/create/course`
