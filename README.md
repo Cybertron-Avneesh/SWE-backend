@@ -49,7 +49,7 @@ Enter user_id and password for authentication
     "admin_level":"2"
 }
 ```
-3. `/createuser`
+3. `/user/create`
 
 Enter user_id,name,photo,admin_level for adding user<br>
 (For now treat photo as varchar)
@@ -71,9 +71,9 @@ Enter user_id,name,photo,admin_level for adding user<br>
 }
 ```
 
-4. `/listuser`
+4. `/user/list?admin_level='admin_level'`
 
-Enter admin_level for viewing Filtered Users List<br>
+Enter 'admin_level' for viewing Filtered Users List<br>
 <br><br>
 >Admin Level<br>
 >0 : View Operating User<br>
@@ -86,11 +86,10 @@ Enter admin_level for viewing Filtered Users List<br>
 Expected json
 {
     "my_id":"iib2019050",
-    "my_level":2,
-    "admin_level":1
+    "my_level":1
 }
 ```
-5. `/permission`
+5. `/user/permission`
 
 **ONLY FOR PREVILEDGED USERS**<br><br>
 
@@ -108,13 +107,20 @@ Expected json
 }
 ```
 
-6. `/masters/create/program`
+6. `/masters/program?action='action num'`
 
 Route is self explanatory<br>
 
+>Action Value Defination for all crud APIs
+>1 : Create
+>2 : List
+>3 : Update
+>4 : Delete
+<br>
+<br>
 **USE POSTMAN**<br>
 ```
-Expected json
+Expected json for Create
 {
     "my_id":"iib2019051",
     "my_level":1,
@@ -123,6 +129,6 @@ Expected json
 }
 ```
 
-7. `/masters/create/branch`
-8. `/masters/create/semester`
-9. `/masters/create/course`
+7. `/masters/branch`
+8. `/masters/semester`
+9. `/masters/course`

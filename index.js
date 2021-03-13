@@ -1,12 +1,15 @@
 const { createdb } = require('./createDatabase.js');
 const { fillDummydata } = require('./dummydata.js');
-const { verifyUser, createUser } = require('./functionalities/auth/index.js');
+const { verifyUser } = require('./functionalities/auth/login.js');
 const { listUser } = require('./functionalities/user/listuser.js');
+const { createUser } = require('./functionalities/user/createUser.js');
+const { removeUser } = require('./functionalities/user/removeUser.js');
+
 const { grantRevoke } = require('./functionalities/user/permission.js');
-const { addProgram } = require('./functionalities/masters/program.js');
-const { addBranch } = require('./functionalities/masters/branch.js');
-const { addSemester } = require('./functionalities/masters/semester.js');
-const { addCourse } = require('./functionalities/masters/course.js');
+const { Program } = require('./functionalities/masters/program.js');
+const { Branch } = require('./functionalities/masters/branch.js');
+const { Semester } = require('./functionalities/masters/semester.js');
+const { Course } = require('./functionalities/masters/course.js');
 
 
 
@@ -17,16 +20,18 @@ const app = express();
 app.use(express.json());
 
 
-app.get('/createdb', createdb); addProgram
+app.get('/createdb', createdb);
 app.get('/filldummydata', fillDummydata);
-app.get('/login', verifyUser);
-app.get('/createuser', createUser);
-app.get('/listuser', listUser);
-app.get('/permission', grantRevoke);
-app.get('/masters/create/program', addProgram);
-app.get('/masters/create/branch', addBranch);
-app.get('/masters/create/semester', addSemester);
-app.get('/masters/create/course', addCourse);
+app.post('/login', verifyUser);
+app.post('/user/create', createUser);
+app.post('/user/remove', removeUser);
+app.get('/user/list', listUser);
+app.post('/user/permission', grantRevoke);
+app.get('/masters/program', Program);
+app.get('/masters/branch', Branch);
+app.get('/masters/semester', Semester);
+app.get('/masters/course', Course);
+
 
 
 

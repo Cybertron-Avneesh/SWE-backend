@@ -5,14 +5,14 @@ const { Client } = require('../../utils/db.js');
 const { createlog, getuserType } = require('../logs.js');
 
 exports.listUser = async function (req, res) {
-    const admin_level = req.body.admin_level;
+    const admin_level = req.query.admin_level;
     const log_message = "Viewed list of users";
     const my_id = req.body.my_id;
     const my_level = req.body.my_level;
 
 
-    var query = `SELECT (name,photo,admin_level,has_access) FROM user_table WHERE admin_level=${admin_level}`;
-    if (admin_level == 3) query = `SELECT (name,photo,admin_level,has_access) FROM user_table`;
+    var query = `SELECT * FROM user_table WHERE admin_level=${admin_level}`;
+    if (admin_level == 3) query = `SELECT * FROM user_table`;
     const client = await Client();
     await client
         .query(query)
