@@ -129,6 +129,6 @@ Expected json for Create
 }
 ```
 
-7. `/masters/branch`
-8. `/masters/semester`
-9. `/masters/course`
+7. `/masters/branch?action='action num'`
+8. `/masters/semester?action='action num'`
+9. `/masters/course?action='action num'`
