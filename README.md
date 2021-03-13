@@ -111,14 +111,15 @@ Expected json
 
 Route is self explanatory<br>
 
->Action Value Defination for all crud APIs
->1 : Create
->2 : List
->3 : Update
+>Action Value Defination for all crud APIs<br>
+>1 : Create<br>
+>2 : List<br>
+>3 : Update<br>
 >4 : Delete
 <br>
 <br>
 **USE POSTMAN**<br>
+
 ```
 Expected json for Create
 {
