@@ -23,13 +23,13 @@ describe('Program Use case ', function () {
 
 
 
-    // it("verifies  program Add functions with valid input", async function () {
+    it("verifies  program Add functions with valid input", async function () {
 
-    //     const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "11aqwqwsq1111aas1", program_name: "random" }, query: { action: 1 } }, res);
+        const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "11aqwqwsq1111aas1", program_name: "random" }, query: { action: 1 } }, res);
 
-    //     assert.deepEqual(result, { msg: "programm added" });
+        assert.deepEqual(result, { msg: "programm added" });
 
-    // });
+    });
     it("verifies  program Add function with invalid input", async function () {
 
         const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "11asasq1111aas1", program_name: "random" }, query: { action: 1 } }, res);
@@ -48,19 +48,30 @@ describe('Program Use case ', function () {
 
     it("verifies  UpdateProgram function with valid input", async function () {
 
-        const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "11asasq1111aas1", program_name: "changedName" }, query: { action: 2 } }, res);
+        const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "11asasq1111aas1", program_name: "changedName" }, query: { action: 3 } }, res);
 
-        assert.deepEqual(result, { msg: "Listing succesfull" });
+        assert.deepEqual(result, { msg: "Update Successfull" });
 
     });
 
     it("verifies  UpdateProgram function with invalid input", async function () {
 
-        const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "11rrrrs1", program_name: "changedName" }, query: { action: 2 } }, res);
+        const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "1", program_name: "changedName" }, query: { action: 3 } }, res);
 
-        assert.deepEqual(result, { msg: "Listing succesfull" });
+        assert.deepEqual(result, { msg: "Update Successfull" });
 
     });
+
+
+    it("verifies  deleteProgram function with valid input", async function () {
+
+        const result = await app.Program({ body: { my_id: "11", my_level: 2, program_id: "1221" }, query: { action: 4 } }, res);
+
+        assert.deepEqual(result, { msg: "Deleted successfully " });
+
+    });
+
+
 
 
 

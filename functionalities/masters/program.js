@@ -25,7 +25,12 @@ exports.Program = async function (req, res) {
         var updateProgramStatus = updateProgram(req, res);
         return updateProgramStatus;
     }
-    else if (action == 4) return deleteProgram(req, res)
+    else if (action == 4) {
+        var deleteProgramStatus = deleteProgram(req, res);
+
+        return deleteProgramStatus;
+
+    }
 
 
 }
@@ -97,11 +102,11 @@ async function updateProgram(req, res) {
         .then(response => {
             res.status(200).send(`Program : ${program_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
-            ret ={ msg : "Update Successfull"}
+            ret = { msg: "Update Successfull" }
         })
         .catch(err => {
             res.status(400).send("Unable to update program")
-            ret ={ msg : "Update unsuccessfull"}
+            ret = { msg: "Update unsuccessfull" }
         })
 
     await client.end();
@@ -115,16 +120,21 @@ async function deleteProgram(req, res) {
 
 
     const client = await Client();
-
+     var ret;
     await client
         .query('DELETE FROM program WHERE program_id=$1', [program_id])
         .then(response => {
             res.status(200).send(`Program : ${program_id} removed successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+
+            ret ={ msg: "Deleted successfully "}
         })
         .catch(err => {
             res.status(400).send("Unable to remove program")
+            ret ={ msg: "Deletion  unsuccessfull "}
         })
     await client.end();
+
+    return ret;
 
 }
