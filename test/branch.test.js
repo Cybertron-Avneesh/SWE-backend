@@ -20,40 +20,44 @@ const res = {
 }
 
 describe('Branch Use case ', function () {
-    it("verifies  valid log in details", async function () {
+    it("verifies  add branch with valid input", async function () {
 
-        const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"12",program_id:"1212" ,branch_name :"It-BI",}, query:{action:1}}, res);
-        console.log(result);
-        assert.deepEqual(result, { msg: "error"});
+        const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",program_id:"111221" ,branch_name :"It-BI",}, query:{action:1}}, res);
+        //console.log(result);
+        assert.deepEqual(result, {msg: "Branch Added"});
+
+    });
+
+    it("verifies  branch listing function", async function () {
+
+        const result = await app.Branch({ body: {my_id :"1",my_level:2,program_id:"111221" ,}, query:{action:2}}, res);
+        //console.log(result);
+        assert.deepEqual(result, {msg :"Successfully Listed "});
 
     });
 
 
+    it("verifies  branch updation function", async function () {
+
+        const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",branch_name :"It-BI",}, query:{action:3}}, res);
+        //console.log(result);
+        assert.deepEqual(result, {msg : "Branch  updated"});
+
+    });
+    it("verifies  branch deletion function", async function () {
+
+        const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",}, query:{action:4}}, res);
+        //console.log(result);
+        assert.deepEqual(result,  {msg: "Branch deleted "});
+
+    });
+
+    
+
+
+
+
+
+
 
 });
-
-// describe('Login', function () {
-
-//   it('verify ', function (done) {
-//     app.verifyUser({ username: "asas ", password: "iib2019050", admin_level: 2 }
-//       , function (isValid) {
-//         assert.equal(isValid, "hello");
-//         isValid.should.equal(true);
-//         done();
-//       });
-//   });
-
-// });
-// it('should do something with promises', function(done) {
-//   //define some data to compare against
-//   var blah = 'foo';
-
-//   //call the function we're testing
-//   var result = app.verifyUser('{ username: "asas ", password: "iib2019050", admin_level: 2 }');
-
-//   //assertions
-//   result.then(function(data) {
-//     expect(data).to.equal(blah);
-//     done();
-//   }).catch(done);
-// });
