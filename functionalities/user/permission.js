@@ -38,4 +38,5 @@ exports.grantRevoke = async function (req, res) {
                 })
                 .end();
         });
+    await client.end();
 }

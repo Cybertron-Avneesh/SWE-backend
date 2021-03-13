@@ -1,3 +1,4 @@
+const { response } = require('express');
 const { pool } = require('../../utils/config.js');
 const { Client } = require('../../utils/db.js');
 
@@ -8,14 +9,14 @@ exports.verifyUser = async function (req, res) {
     const user_id = req.body.user_id;
     const password = req.body.password;
     const admin_level = req.body.admin_level;
-    const log_message = "Login";
+    const log_message = `${user_id} Logged In`;
 
 
     if (!user_id || !password) {
 
-       
-         res.status(400).send({ msg: 'User ID and password are mandatory' });
-        return { msg: 'User ID and password are mandatory'  }
+
+        res.status(400).send({ msg: 'User ID and password are mandatory' });
+        return { msg: 'User ID and password are mandatory' }
     }
 
     const client = await Client();
@@ -37,18 +38,19 @@ exports.verifyUser = async function (req, res) {
         res
             .status(200)
             .json({
-                data: data.rows[0].name,
+                name: data.rows[0].name,
                 photo: data.rows[0].photo,
-                unique_id: data.rows[0].unique_id
+                user_id: data.rows[0].user_id
             })
             .end();
 
-        createlog(user_id, data.rows[0].name, getuserType(admin_level), log_message);
-    
+        createlog(user_id, getuserType(admin_level), log_message);
+        await client.end();
+
         return {
-            data: data.rows[0].name,
+            name: data.rows[0].name,
             photo: data.rows[0].photo,
-            unique_id: data.rows[0].unique_id
+            user_id: data.rows[0].user_id
         }
 
     } else {
@@ -58,6 +60,7 @@ exports.verifyUser = async function (req, res) {
                 msg: "Authentication Failed"
             })
             .end();
+        await client.end();
 
         return { msg: "Authentication Failed" }
     }
@@ -70,32 +73,33 @@ exports.createUser = async function (req, res) {
     const name = req.body.name;
     const photo = req.body.photo;
     const admin_level = req.body.admin_level;
-    const log_message = "New Message Added"
+    const my_id = req.body.my_id;
+    const my_level = req.body.my_level;
 
+    const log_message = `New ${getuserType(admin_level)}  :: ${user_id} Added By ${my_id}`;
 
-    if (!user_id || !name || !admin_level) {
+    // console.log(user_id, name, admin_level)
 
-        return res.status(400).send({ msg: 'usename,password and Admin level are mandatory' });
+    if (!user_id || !name || admin_level == undefined) {
+
+        return res.status(400).send({ msg: 'userID,name and Admin level are mandatory' });
     }
 
     const client = await Client();
     var data;
 
-
     await client
         .query(`SELECT * FROM ldap WHERE user_id=$1`, [user_id])
-        .then((resData) => {
-            data = resData;
-        })
+        .then(response => { data = response })
         .catch(err => console.log(`${err}`))
 
 
     if (data.rows.length == 1) {
         await client
-            .query(`INSERT INTO user_table (unique_id,name,admin_level,has_access) VALUES (${data.rows[0].unique_id},'${name}',${admin_level},1);`)
+            .query(`INSERT INTO user_table VALUES ('${user_id}','${name}','${photo}',${admin_level},1);`)
             .then(resData => {
-                res.status(200).send("User Added");
-                createlog(user_id, name, getuserType(admin_level), log_message);
+                res.status(200).send(` '${user_id}' is now ${getuserType(admin_level)}`);
+                createlog(my_id, getuserType(my_level), log_message);
             })
             .catch(err => {
                 console.error(err);

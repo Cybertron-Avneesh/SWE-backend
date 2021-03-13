@@ -9,13 +9,13 @@ exports.getuserType = function (admin_level) {
     else return 'Invalid admin';
 }
 
-exports.createlog = async function (user_id, name, user_type, action) {
+exports.createlog = async function (user_id, user_type, action) {
     const client = await Client();
 
     await client
-        .query(`INSERT INTO logs VALUES ('${user_id}','${name}','${user_type}','${action}',NOW())`)
+        .query('INSERT INTO logs VALUES ($1,$2,$3,NOW())', [user_id, user_type, action])
         .then()
-        .catch((err) => console.log(`${err}`));
+        .catch((err) => console.log(`Log Error : ${err}`));
 
     await client.end();
 }
