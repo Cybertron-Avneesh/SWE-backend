@@ -11,10 +11,21 @@ exports.Semester = async function (req, res) {
     my_id = req.body.my_id;
     my_level = req.body.my_level;
 
-    if (action == 1) addSemester(req, res)
-    else if (action == 2) listSemester(req, res)
+    if (action == 1) {
+        var addSemesterStatus = addSemester(req, res)
+        return addSemesterStatus;
+    }
+    else if (action == 2) {
+        
+        var listSemesterStatus= listSemester(req, res)
+        return listSemesterStatus;
+    }
     // else if (action == 3) updateSemester(req, res)
-    else if (action == 4) deleteSemester(req, res)
+    else if (action == 4) {
+        
+        var deleteSemesterStatus=deleteSemester(req, res)
+        return deleteSemesterStatus;
+    }
 }
 async function addSemester(req, res) {
     const semester_id = req.body.semester_id;
@@ -25,19 +36,24 @@ async function addSemester(req, res) {
 
 
     const client = await Client();
-
+    var ret ;
     await client
         .query('INSERT INTO semester VALUES($1,$2,$3)', [semester_id, branch_id, semester_num])
         .then(response => {
             res.status(200).send(`Semester : ${semester_id} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+
+            ret = {msg : "Semester added"}
         })
         .catch(err => {
             res.status(400).send("Unable to add semester")
             console.log(`programAddError : ${err}`)
+            ret = {msg : "Unable to add semester"}
         })
 
     await client.end();
+
+    return ret;
 
 }
 async function listSemester(req, res) {
@@ -47,7 +63,7 @@ async function listSemester(req, res) {
 
 
     const client = await Client();
-
+    var ret
     await client
         .query('SELECT * FROM semester WHERE branch_id=$1', [branch_id])
         .then(response => {
@@ -58,12 +74,17 @@ async function listSemester(req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message)
+
+            ret= {msg : "Semeser Listed"}
         })
         .catch(err => {
             res.status(400).send("Unable to List semester")
+            ret= {msg : "Semeser Listed"}
         })
 
     await client.end();
+
+    return ret;
 
 }
 // async function updateSemester(req, res) {
@@ -96,17 +117,20 @@ async function deleteSemester(req, res) {
 
 
     const client = await Client();
-
+    var ret ;
     await client
         .query('DELETE FROM semester WHERE semester_id=$1', [semester_id])
         .then(response => {
             res.status(200).send(`Semester : ${semester_id} removed successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+            ret= {msg :"Semester deleted"}
         })
         .catch(err => {
             res.status(400).send("Unable to remove semester")
+            ret = { msg :"Semester not deleted"}
         })
 
     await client.end();
+    return ret;
 
 }

@@ -11,10 +11,26 @@ exports.Course = async function (req, res) {
     my_id = req.body.my_id;
     my_level = req.body.my_level;
 
-    if (action == 1) addCourse(req, res)
-    else if (action == 2) listCourse(req, res)
-    else if (action == 3) updateCourse(req, res)
-    else if (action == 4) deleteCourse(req, res)
+    if (action == 1) {
+
+        var addCourseStatus = addCourse(req, res);
+        return addCourseStatus;
+    }
+    else if (action == 2) {
+
+        var listCourseStatus = listCourse(req, res)
+        return listCourseStatus;
+    }
+    else if (action == 3) {
+        var updateCourseStatus = updateCourse(req, res)
+        return updateCourseStatus;
+    }
+    else if (action == 4) {
+
+        var deleteCourseStatus = deleteCourse(req, res)
+
+        return deleteCourseStatus;
+    }
 }
 
 async function addCourse(req, res) {
@@ -24,7 +40,7 @@ async function addCourse(req, res) {
     const credits = req.body.credits;
     const course_name = req.body.course_name;
 
-
+    var ret ;
     const my_id = req.body.my_id;
     const my_level = req.body.my_level;
     const log_message = `New course :'${course_name}' added in branch :'${branch_id}' for semester : ${semester_id} by user : ${my_id}`;
@@ -37,14 +53,20 @@ async function addCourse(req, res) {
         .then(response => {
             res.status(200).send(`Course : ${course_name} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+
+            ret = { msg :"Course Added"}
         })
         .catch(err => {
             res.status(400).send("Unable to add course")
             console.log(`programAddError : ${err}`)
             // createlog(my_id, getuserType(my_level), `programAddError : ${err}`)
+
+            ret = { msg:"Unable to add course" }
         })
 
     await client.end();
+
+    return ret ;
 
 }
 async function listCourse(req, res) {
@@ -54,7 +76,7 @@ async function listCourse(req, res) {
 
 
     const client = await Client();
-
+    var ret ; 
     await client
         .query('SELECT * FROM course WHERE branch_id=$1', [branch_id])
         .then(response => {
@@ -65,12 +87,16 @@ async function listCourse(req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg :"Course listed"}
         })
         .catch(err => {
             res.status(400).send("Unable to List courses")
+            ret = { msg :"Unable to list course "}
         })
 
     await client.end();
+
+    return ret;
 
 }
 async function updateCourse(req, res) {
@@ -82,18 +108,21 @@ async function updateCourse(req, res) {
 
 
     const client = await Client();
-
+    var ret ; 
     await client
         .query('UPDATE course SET credits=$2,course_name=$3 WHERE course_id=$1', [course_id, credits, course_name])
         .then(response => {
             res.status(200).send(`Course : ${course_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg :"Course updated "}
         })
         .catch(err => {
             res.status(400).send("Unable to update course")
+            ret = { msg : "Unable to update course"}
         })
 
     await client.end();
+    return ret;
 
 }
 async function deleteCourse(req, res) {
@@ -103,17 +132,21 @@ async function deleteCourse(req, res) {
 
 
     const client = await Client();
-
+    var ret ; 
     await client
         .query('DELETE FROM course WHERE course_id=$1', [course_id])
         .then(response => {
             res.status(200).send(`Course : ${course_id} removed successfully`)
             createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg :"Course deleted "}
         })
         .catch(err => {
             res.status(400).send("Unable to remove course")
+            ret = { msg :"Course not deleted "}
         })
 
     await client.end();
+
+    return ret;
 
 }
