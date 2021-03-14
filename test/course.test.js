@@ -22,35 +22,35 @@ const res = {
 describe('Course Use case ', function () {
     it("verifies  add course function  with valid input", async function () {
 
-        const result = await app.Branch({ body: {my_id :"1",my_level:2,semester_id: "121",branch_id:"1233",program_id:"111221" ,branch_name :"It-BI",}, query:{action:1}}, res);
+        const result = await app.Course({ body: {my_id :"1",my_level:2,course_id:"111",semester_id: "1211",branch_id:"12",credits:4 ,course_name :"SWE",}, query:{action:1}}, res);
         //console.log(result);
         assert.deepEqual(result, { msg :"Course Added"});
 
     });
 
-    // it("verifies  branch listing function", async function () {
+    it("verifies  course  listing function", async function () {
 
-    //     const result = await app.Branch({ body: {my_id :"1",my_level:2,program_id:"111221" ,}, query:{action:2}}, res);
-    //     //console.log(result);
-    //     assert.deepEqual(result, {msg :"Successfully Listed "});
+        const result = await app.Course({ body: {my_id :"1",my_level:2,branch_id:"12" ,}, query:{action:2}}, res);
+        //console.log(result);
+        assert.deepEqual(result,  { msg :"Course listed"});
 
-    // });
+    });
 
 
-    // it("verifies  branch updation function", async function () {
+    it("verifies  Course updation function", async function () {
 
-    //     const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",branch_name :"It-BI",}, query:{action:3}}, res);
-    //     //console.log(result);
-    //     assert.deepEqual(result, {msg : "Branch  updated"});
+        const result = await app.Course({ body: {my_id :"1",my_level:2,course_id:"111",credits:4 ,course_name :"SWE",}, query:{action:3}}, res);
+        //console.log(result);
+        assert.deepEqual(result, { msg :"Course updated "});
 
-    // });
-    // it("verifies  branch deletion function", async function () {
+    });
+    it("verifies  Course  deletion function", async function () {
 
-    //     const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",}, query:{action:4}}, res);
-    //     //console.log(result);
-    //     assert.deepEqual(result,  {msg: "Branch deleted "});
+        const result = await app.Course({ body: {my_id :"1",my_level:2,course_id:"111",}, query:{action:4}}, res);
+        //console.log(result);
+        assert.deepEqual(result,    { msg :"Course deleted "});
 
-    // });
+    });
 
     
 
