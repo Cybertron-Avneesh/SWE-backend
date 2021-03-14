@@ -15,10 +15,11 @@ exports.createUser = async function (req, res) {
     const log_message = `New ${getuserType(admin_level)}  :: ${user_id} Added By ${my_id}`;
 
     // console.log(user_id, name, admin_level)
-
+    var ret ;
     if (!user_id || !name || admin_level == undefined) {
 
-        return res.status(400).send({ msg: 'userID,name and Admin level are mandatory' });
+        res.status(400).send({ msg: 'userID,name and Admin level are mandatory' });
+        return { msg: 'userID,name and Admin level are mandatory' };
     }
 
     const client = await Client();
@@ -43,16 +44,18 @@ exports.createUser = async function (req, res) {
             });
         await client.end();
 
-        return;
+        return {msg : "User created"};
     } else {
         await client.end();
 
-        return res
+       res
             .status(400)
             .json({
                 msg: "User ldap not found"
             })
             .end();
+
+      return {msg : "User ldap not found"}
     }
 
 
