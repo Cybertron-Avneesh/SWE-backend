@@ -11,7 +11,6 @@ exports.Branch = async function (req, res) {
     const action = req.query.action;
     my_id = req.body.my_id;
     my_level = req.body.my_level;
-
     if (action == 1) {
 
         var addBranchStatus = addBranch(req, res);
@@ -47,12 +46,12 @@ async function addBranch(req, res) {
         .then(response => {
             res.status(200).send(`Program : ${branch_name} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
-            ret = {msg: "Branch Added"}
+            ret = { msg: "Branch Added" }
         })
         .catch(err => {
             res.status(400).send("Unable to add branch")
             console.log(`programAddError : ${err}`)
-            return { msg: "Branch Not Added" }
+            ret = { msg: "Branch Not Added" }
         })
 
     await client.end();
@@ -65,9 +64,9 @@ async function listBranch(req, res) {
 
     const log_message = `Branch List Viewed by ${my_id}`;
 
-    
+
     const client = await Client();
-    var ret ;
+    var ret;
     await client
         .query('SELECT * FROM branch WHERE program_id=$1', [program_id])
         .then(response => {
@@ -78,11 +77,11 @@ async function listBranch(req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message)
-            ret ={msg :"Successfully Listed "}
+            ret = { msg: "Successfully Listed " }
         })
         .catch(err => {
             res.status(400).send("Unable to List branch")
-            ret ={msg :"Unable to List branch"}
+            ret = { msg: "Unable to List branch" }
         })
 
     await client.end();
@@ -98,17 +97,17 @@ async function updateBranch(req, res) {
 
 
     const client = await Client();
-    var ret ;
+    var ret;
     await client
         .query('UPDATE branch SET branch_name=$2 WHERE branch_id=$1', [branch_id, branch_name])
         .then(response => {
             res.status(200).send(`Branch : ${branch_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
-            ret = {msg : "Branch  updated"}
+            ret = { msg: "Branch  updated" }
         })
         .catch(err => {
             res.status(400).send("Unable to update branch")
-            ret = {msg : "Branch  not updated"}
+            ret = { msg: "Branch  not updated" }
         })
 
     await client.end();
@@ -120,9 +119,9 @@ async function deleteBranch(req, res) {
     const branch_id = req.body.branch_id;
 
     const log_message = `Branch : '${branch_id}' removed by ${my_id}`;
-  
 
-     var ret ;
+
+    var ret;
     const client = await Client();
 
     await client
@@ -131,15 +130,15 @@ async function deleteBranch(req, res) {
             res.status(200).send(`Branch : ${branch_id} removed successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            ret = {msg: "Branch deleted "}
+            ret = { msg: "Branch deleted " }
         })
         .catch(err => {
             res.status(400).send("Unable to remove branch")
-            ret = {msg: "Branch not deleted "}
+            ret = { msg: "Branch not deleted " }
         })
 
     await client.end();
 
-    return ret ;
+    return ret;
 
 }

@@ -12,10 +12,12 @@ exports.createUser = async function (req, res) {
     const my_id = req.body.my_id;
     const my_level = req.body.my_level;
 
+
     const log_message = `New ${getuserType(admin_level)}  :: ${user_id} Added By ${my_id}`;
+    // console.log(log_message)
 
     // console.log(user_id, name, admin_level)
-    var ret ;
+    var ret;
     if (!user_id || !name || admin_level == undefined) {
 
         res.status(400).send({ msg: 'userID,name and Admin level are mandatory' });
@@ -35,27 +37,27 @@ exports.createUser = async function (req, res) {
         await client
             .query(`INSERT INTO user_table VALUES ('${user_id}','${name}','${photo}',${admin_level},1);`)
             .then(resData => {
-                res.status(200).send(` '${user_id}' is now ${getuserType(admin_level)}`);
+                res.status(200).send({ msg: ` '${user_id}' is now ${getuserType(admin_level)}` });
                 createlog(my_id, getuserType(my_level), log_message);
             })
             .catch(err => {
-                console.error(err);
-                res.status(400).send(`${err}`);
+                console.log(`${err}`);
+                res.status(400).send({ msg: `${err}` });
             });
         await client.end();
 
-        return {msg : "User created"};
+        return { msg: "User created" };
     } else {
         await client.end();
 
-       res
+        res
             .status(400)
             .json({
                 msg: "User ldap not found"
             })
             .end();
 
-      return {msg : "User ldap not found"}
+        return { msg: "User ldap not found" }
     }
 
 

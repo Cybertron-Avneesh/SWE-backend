@@ -24,6 +24,7 @@ HIT SAVE
 * `npm init -y`
 * `npm i pg`
 * `npm i nodemon`
+* `npm i cors`
 * `nodemon index.js`
 * for installing mocha & chai (unit testing)
 * `npm install mocha chai --save-dev`
