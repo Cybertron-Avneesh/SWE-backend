@@ -10,7 +10,7 @@ exports.grantRevoke = async function (req, res) {
     const admin_level = req.body.admin_level;
 
     var log_message;
-
+    // console.log(log_message)
     if (has_access == 1) log_message = `Access Granted to ${user_id}`;
     else log_message = `Access Revoked from ${user_id}`;
 

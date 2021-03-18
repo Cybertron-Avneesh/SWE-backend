@@ -19,3 +19,34 @@ exports.createlog = async function (user_id, user_type, action) {
 
     await client.end();
 }
+
+exports.getlog = async function(req,res){
+    const client = await Client();
+
+    await client
+        .query('SELECT * FROM logs')
+        .then(response => {
+            // console.log(response.rows);
+            res
+                .status(200)
+                .json({
+                    logs: response.rows
+                })
+                .end();
+            return { logs: response.rows }
+
+        })
+        .catch(err => {
+            console.log(`${err}`)
+            res
+                .status(400)
+                .json({
+                    msg: 'Cannot Get Users List'
+                })
+                .end();
+            return { msg: 'Cannot Get Users List' }
+
+        });
+
+    await client.end();
+}

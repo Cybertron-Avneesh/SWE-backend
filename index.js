@@ -10,7 +10,7 @@ const { Program } = require('./functionalities/masters/program.js');
 const { Branch } = require('./functionalities/masters/branch.js');
 const { Semester } = require('./functionalities/masters/semester.js');
 const { Course } = require('./functionalities/masters/course.js');
-
+const { getlog } = require('./functionalities/logs.js');
 
 
 
@@ -36,11 +36,11 @@ app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
 app.get('/user/list', listUser);
 app.post('/user/permission', grantRevoke);
-app.get('/masters/program', Program);
-app.get('/masters/branch', Branch);
-app.get('/masters/semester', Semester);
-app.get('/masters/course', Course);
-
+app.post('/masters/program', Program);
+app.post('/masters/branch', Branch);
+app.post('/masters/semester', Semester);
+app.post('/masters/course', Course);
+app.get('/logs',getlog);
 
 
 
