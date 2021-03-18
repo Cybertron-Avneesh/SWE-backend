@@ -34,7 +34,7 @@ app.get('/filldummydata', fillDummydata);
 app.post('/login', verifyUser);
 app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
-app.get('/user/list', listUser);
+app.post('/user/list', listUser);
 app.post('/user/permission', grantRevoke);
 app.post('/masters/program', Program);
 app.post('/masters/branch', Branch);

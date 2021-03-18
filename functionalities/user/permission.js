@@ -10,12 +10,13 @@ exports.grantRevoke = async function (req, res) {
     const admin_level = req.body.admin_level;
 
     var log_message;
-    // console.log(log_message)
     if (has_access == 1) log_message = `Access Granted to ${user_id}`;
     else log_message = `Access Revoked from ${user_id}`;
 
 
-    var query = `UPDATE user_table SET has_access=${has_access} WHERE unique_id=(SELECT (unique_id) FROM ldap WHERE user_id='${user_id}')`;
+    var query = `UPDATE user_table SET has_access=${has_access} WHERE user_id='${user_id}'`;
+    // console.log(query)
+
     const client = await Client();
     await client
         .query(query)
