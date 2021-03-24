@@ -22,7 +22,7 @@ const res = {
 describe('Branch Use case ', function () {
     it("verifies  add branch with valid input", async function () {
 
-        const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",program_id:"111221" ,branch_name :"It-BI",}, query:{action:1}}, res);
+        const result = await app.Branch({ body: {my_id :"1",my_level:2,branch_id:"1233",program_id:"111221" ,branch_name :"Chemical",}, query:{action:1}}, res);
         //console.log(result);
         assert.deepEqual(result, {msg: "Branch Added"});
 

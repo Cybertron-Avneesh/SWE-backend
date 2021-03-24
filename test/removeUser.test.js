@@ -22,7 +22,7 @@ const res = {
 describe('Remove User  ', function () {
     it("verifies remove user with valid  ", async function () {
 
-        const result = await app.removeUser({ body: { user_id: "iib2019055",  my_id: "11", my_level: 1 } }, res);
+        const result = await app.removeUser({ body: { user_id: "iib2019054",  my_id: "11", my_level: 1 } }, res);
     //     console.log(result);
         assert.deepEqual(result, { msg:"User removed"});
 

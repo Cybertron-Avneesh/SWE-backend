@@ -28,7 +28,7 @@ describe('Semester Use case ', function () {
 
     });
 
-    it("verifies  Course listing function", async function () {
+    it("verifies  Semester listing function", async function () {
 
         const result = await app.Semester({ body: {my_id :"1",my_level:2,branch_id:"123" ,}, query:{action:2}}, res);
         //console.log(result);
