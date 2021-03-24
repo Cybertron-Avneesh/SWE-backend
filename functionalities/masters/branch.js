@@ -1,7 +1,4 @@
-const { pool } = require('../../utils/config.js');
 const { Client } = require('../../utils/db.js');
-
-
 const { createlog, getuserType } = require('../logs.js');
 
 var my_id;
@@ -11,6 +8,7 @@ exports.Branch = async function (req, res) {
     const action = req.query.action;
     my_id = req.body.my_id;
     my_level = req.body.my_level;
+    console.log(action)
     if (action == 1) {
 
         var addBranchStatus = addBranch(req, res);

@@ -12,6 +12,9 @@ const { Semester } = require('./functionalities/masters/semester.js');
 const { Course } = require('./functionalities/masters/course.js');
 const { getlog } = require('./functionalities/logs.js');
 
+const { Student } = require('./functionalities/student/student.js');
+
+
 
 
 
@@ -41,7 +44,7 @@ app.post('/masters/branch', Branch);
 app.post('/masters/semester', Semester);
 app.post('/masters/course', Course);
 app.get('/logs',getlog);
-
+app.post(`/student/create/*`,Student);
 
 
 

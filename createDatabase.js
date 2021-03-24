@@ -30,13 +30,18 @@ exports.createdb = async function (req, res) {
     try {
         client = await Client();
         //Warning : Dropping sequence is imp as foreign key constraints may interfere
-        await dropTable('logs');
-        await dropTable('user_table');
-        await dropTable('ldap');
-        await dropTable('course');
-        await dropTable('semester');
-        await dropTable('branch');
-        await dropTable('program');
+        // await dropTable('logs');
+        // await dropTable('user_table');
+        // await dropTable('ldap');
+        await dropTable('marks');
+        await dropTable('results');
+        await dropTable('fees');
+        await dropTable('disciplinary_actions');
+        await dropTable('student');
+        // await dropTable('course');
+        // await dropTable('semester');
+        // await dropTable('branch');
+        // await dropTable('program');
 
 
 
@@ -57,6 +62,16 @@ exports.createdb = async function (req, res) {
         await createTable('CREATE TABLE semester(semester_id VARCHAR(100) PRIMARY KEY,branch_id VARCHAR(100) REFERENCES branch(branch_id) ON DELETE CASCADE,semester_num INT NOT NULL)', 'semester');
         //courses
         await createTable('CREATE TABLE course(course_id VARCHAR(100) PRIMARY KEY,semester_id VARCHAR(100) REFERENCES semester(semester_id),branch_id VARCHAR(100) REFERENCES branch(branch_id),course_name VARCHAR(200),credits INT NOT NULL)', 'course');
+        //student
+        await createTable('CREATE TABLE student(enrollment_id VARCHAR(100) PRIMARY KEY,email_id VARCHAR(100),name VARCHAR(500),dob VARCHAR(200),age INT,photo VARCHAR(100),phone_number INT,address VARCHAR(1000),program_id VARCHAR(100) REFERENCES program(program_id),branch_id VARCHAR(100) REFERENCES branch(branch_id),section VARCHAR(100),current_semester_number INT,cgpi float,credits_completed INT);', 'student');
+        //marks
+        await createTable('CREATE TABLE marks(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,course_id VARCHAR(100) REFERENCES course(course_id),c1 INT,c2 INT,c3 INT);', 'marks');
+        //results
+        await createTable('CREATE TABLE results(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,total_credits INT,gpa float)', 'results');
+        //fees
+        await createTable('CREATE TABLE fees(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,fee_status INT)', 'fees');
+        //disciplinary_actions
+        await createTable('CREATE TABLE disciplinary_actions(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),action VARCHAR(500),reason VARCHAR(1000),time timestamp)', 'disciplinary_actions');
 
         res.status(200).send("DB created");
         await client.end();
