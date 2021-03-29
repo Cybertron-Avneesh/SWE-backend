@@ -66,7 +66,7 @@ async function listBranch(req, res) {
     const client = await Client();
     var ret;
     await client
-        .query('SELECT * FROM branch WHERE program_id=$1', [program_id])
+        .query('SELECT * FROM branch')
         .then(response => {
             res
                 .status(200)
@@ -90,6 +90,7 @@ async function listBranch(req, res) {
 async function updateBranch(req, res) {
     const branch_id = req.body.branch_id;
     const branch_name = req.body.branch_name;
+    const program_id = req.body.program_id;
 
     const log_message = `Branch : '${branch_id}' updated by ${my_id}`;
 
@@ -97,7 +98,7 @@ async function updateBranch(req, res) {
     const client = await Client();
     var ret;
     await client
-        .query('UPDATE branch SET branch_name=$2 WHERE branch_id=$1', [branch_id, branch_name])
+        .query('UPDATE branch SET branch_name=$2 WHERE branch_id=$1 AND program_id=$3', [branch_id, branch_name, program_id])
         .then(response => {
             res.status(200).send(`Branch : ${branch_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
@@ -115,6 +116,7 @@ async function updateBranch(req, res) {
 }
 async function deleteBranch(req, res) {
     const branch_id = req.body.branch_id;
+    const program_id = req.body.program_id;
 
     const log_message = `Branch : '${branch_id}' removed by ${my_id}`;
 
@@ -123,7 +125,7 @@ async function deleteBranch(req, res) {
     const client = await Client();
 
     await client
-        .query('DELETE FROM branch WHERE branch_id=$1', [branch_id])
+        .query('DELETE FROM branch WHERE branch_id=$1 AND program_id=$2', [branch_id, program_id])
         .then(response => {
             res.status(200).send(`Branch : ${branch_id} removed successfully`)
             createlog(my_id, getuserType(my_level), log_message)

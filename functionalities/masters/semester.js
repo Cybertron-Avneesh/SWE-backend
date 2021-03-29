@@ -65,7 +65,7 @@ async function listSemester(req, res) {
     const client = await Client();
     var ret
     await client
-        .query('SELECT * FROM semester WHERE branch_id=$1', [branch_id])
+        .query('SELECT * FROM semester')
         .then(response => {
             res
                 .status(200)
