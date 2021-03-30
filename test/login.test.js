@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const app = require('../functionalities/auth/index.js');
+const app = require('../functionalities/auth/login.js');
 const { expect } = require('chai');
 var should = require('chai').should();
 
@@ -22,9 +22,9 @@ const res = {
 describe('Login ', function () {
     it("verifies  valid log in details", async function () {
 
-        const result = await app.verifyUser({ body: { user_id: "iib2019050", password: "iib2019050", admin_level: 2 } }, res);
+        const result = await app.verifyUser({ body: { user_id: "iib2019052", password: "iib2019052", admin_level: 0 } }, res);
      // console.log(result);
-        assert.equal(result.data, "Mr.X");
+     assert.deepEqual(result, { msg: 'Authentication Verified' });
 
     });
 

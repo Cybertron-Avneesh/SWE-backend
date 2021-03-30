@@ -45,11 +45,13 @@ exports.verifyUser = async function (req, res) {
         createlog(user_id, getuserType(admin_level), log_message);
         await client.end();
 
-        return {
-            name: data.rows[0].name,
-            photo: data.rows[0].photo,
-            user_id: data.rows[0].user_id
-        }
+        // return {
+        //     name: data.rows[0].name,
+        //     photo: data.rows[0].photo,
+        //     user_id: data.rows[0].user_id
+        // }
+
+        return { msg: 'Authentication Verified' }
 
     } else {
         res
