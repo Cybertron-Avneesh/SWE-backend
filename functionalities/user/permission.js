@@ -16,7 +16,7 @@ exports.grantRevoke = async function (req, res) {
 
     var query = `UPDATE user_table SET has_access=${has_access} WHERE user_id='${user_id}'`;
     // console.log(query)
-
+    var ret ;
     const client = await Client();
     await client
         .query(query)
@@ -28,6 +28,11 @@ exports.grantRevoke = async function (req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(admin_level), log_message);
+            if(has_access==1)
+            ret = { msg :"Access Granted"};
+            else
+            ret ={ msg :"Access Revoked"};
+            
         })
         .catch(err => {
             console.log(`${err}`)
@@ -37,6 +42,9 @@ exports.grantRevoke = async function (req, res) {
                     msg: 'Cannot Update Permission'
                 })
                 .end();
+
+                ret = {  msg: 'Cannot Update Permission'};
         });
     await client.end();
+    return ret;
 }
