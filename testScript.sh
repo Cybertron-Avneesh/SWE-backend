@@ -11,3 +11,4 @@ mocha ./test/semester.test.js
 mocha ./test/createUser.test.js
 mocha ./test/removeUser.test.js
 
+mocha ./test/logs.test.js
