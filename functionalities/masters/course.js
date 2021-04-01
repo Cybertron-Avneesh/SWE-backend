@@ -78,7 +78,7 @@ async function listCourse(req, res) {
     const client = await Client();
     var ret ; 
     await client
-        .query('SELECT * FROM course WHERE branch_id=$1', [branch_id])
+        .query('SELECT * FROM course')
         .then(response => {
             res
                 .status(200)
@@ -103,6 +103,8 @@ async function updateCourse(req, res) {
     const course_id = req.body.course_id;
     const course_name = req.body.course_name;
     const credits = req.body.credits;
+    const semester_id = req.body.semester_id;
+
 
     const log_message = `Course : '${course_id}' updated by ${my_id}`;
 
@@ -110,7 +112,7 @@ async function updateCourse(req, res) {
     const client = await Client();
     var ret ; 
     await client
-        .query('UPDATE course SET credits=$2,course_name=$3 WHERE course_id=$1', [course_id, credits, course_name])
+        .query('UPDATE course SET credits=$2,course_name=$3 WHERE course_id=$1 AND semester_id=$4', [course_id, credits, course_name, semester_id])
         .then(response => {
             res.status(200).send(`Course : ${course_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
@@ -127,6 +129,7 @@ async function updateCourse(req, res) {
 }
 async function deleteCourse(req, res) {
     const course_id = req.body.course_id;
+    const semester_id = req.body.semester_id;
 
     const log_message = `Course : '${course_id}' removed by ${my_id}`;
 
@@ -134,7 +137,7 @@ async function deleteCourse(req, res) {
     const client = await Client();
     var ret ; 
     await client
-        .query('DELETE FROM course WHERE course_id=$1', [course_id])
+        .query('DELETE FROM course WHERE course_id=$1 AND semester_id=$2', [course_id, semester_id])
         .then(response => {
             res.status(200).send(`Course : ${course_id} removed successfully`)
             createlog(my_id, getuserType(my_level), log_message)

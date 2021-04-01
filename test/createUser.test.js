@@ -30,7 +30,7 @@ describe('Create User  ', function () {
 
     it("verifies  Valid input ", async function () {
 
-        const result = await app.createUser({ body: { user_id: "iib2019055", name :"Ganesh ",photo: "Asas", admin_level: 2, my_id: "11", my_level: 2 } }, res);
+        const result = await app.createUser({ body: { user_id: "iib2019056", name :"Ganesh ",photo: "Asas", admin_level: 2, my_id: "11", my_level: 2 } }, res);
      // console.log(result);
       assert.deepEqual(result,{msg : "User created"});
 

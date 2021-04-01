@@ -10,6 +10,7 @@ exports.listUser = async function (req, res) {
     const my_id = req.body.my_id;
     const my_level = req.body.my_level;
 
+    var ret;
     // console.log(admin_level)
     var query = `SELECT * FROM user_table WHERE admin_level=${admin_level}`;
     if (admin_level == 3) query = `SELECT * FROM user_table`;
@@ -25,8 +26,10 @@ exports.listUser = async function (req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message);
-            return { users: response.rows }
+           // console.log(response.rows);
 
+            //return { users: response.rows };
+           ret=  { msg: 'Users Listed'}
 
         })
         .catch(err => {
@@ -37,7 +40,12 @@ exports.listUser = async function (req, res) {
                     msg: 'Cannot Get Users List'
                 })
                 .end();
-            return { msg: 'Cannot Get Users List' }
+            ret= { msg: 'Cannot Get Users List' }
 
         });
-}
+
+        await client.end();
+
+        return ret;
+
+    }

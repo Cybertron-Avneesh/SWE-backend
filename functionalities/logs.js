@@ -12,17 +12,22 @@ exports.getuserType = function (admin_level) {
 exports.createlog = async function (user_id, user_type, action) {
     const client = await Client();
 
+    var ret;
     await client
         .query('INSERT INTO logs VALUES ($1,$2,$3,NOW())', [user_id, user_type, action])
-        .then()
+        .then(
+             ret={msg: "logs created"}
+        )
         .catch((err) => console.log(`Log Error : ${err}`));
 
     await client.end();
+
+    return ret;
 }
 
 exports.getlog = async function(req,res){
     const client = await Client();
-
+    var ret;
     await client
         .query('SELECT * FROM logs')
         .then(response => {
@@ -33,7 +38,7 @@ exports.getlog = async function(req,res){
                     logs: response.rows
                 })
                 .end();
-            return { logs: response.rows }
+            ret= { msg: "logs fetched"}
 
         })
         .catch(err => {
@@ -44,9 +49,10 @@ exports.getlog = async function(req,res){
                     msg: 'Cannot Get Users List'
                 })
                 .end();
-            return { msg: 'Cannot Get Users List' }
+            ret= { msg: 'Cannot Get Users List' }
 
         });
 
     await client.end();
+    return ret;
 }
