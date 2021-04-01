@@ -45,6 +45,9 @@ async function addStudent(req, res) {
     const current_semester_number = req.body.current_semester_number;
     const cgpi = req.body.cgpi;
     const credits_completed = req.body.credits_completed;
+    const is_verified = 0;
+    const grade_card = req.body.grade_card;
+    const medal = req.body.medal;
     var log_message;
 
     if(current_semester_number==1)
@@ -56,7 +59,7 @@ async function addStudent(req, res) {
     const client = await Client();
     var ret;
     await client
-        .query('INSERT INTO student VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)', [enrollment_id, email_id, name,dob,age,photo,phone_num,address,program_id,branch_id,section,current_semester_number,cgpi,credits_completed])
+        .query('INSERT INTO student VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)', [enrollment_id, email_id, name,dob,age,photo,phone_num,address,program_id,branch_id,section,current_semester_number,cgpi,credits_completed,is_verified,grade_card,medal])
         .then(response => {
             res.status(200).send(`Successful Fresh admission of Student : '${enrollment_id}' in ${program_id}-${branch_id}`)
             createlog(my_id, getuserType(my_level), log_message)
@@ -121,14 +124,16 @@ async function updateStudent(req, res) {
     const current_semester_number = req.body.current_semester_number;
     const cgpi = req.body.cgpi;
     const credits_completed = req.body.credits_completed;
-
+    const is_verified = req.body.is_verified;
+    const grade_card = req.body.grade_card;
+    const medal = req.body.medal;
     const log_message = `Branch : '${branch_id}' updated by ${my_id}`;
 
 
     const client = await Client();
     var ret;
     await client
-        .query('UPDATE student SET branch_id=$2,section=$3,current_semester_number=$4,cgpi=$5,credits_completed=$6 WHERE enrollment_id=$1', [enrollment_id,branch_id,section,current_semester_number,cgpi,credits_completed])
+        .query('UPDATE student SET branch_id=$2,section=$3,current_semester_number=$4,cgpi=$5,credits_completed=$6,is_verified=$7,grade_card=$8,medal=$9 WHERE enrollment_id=$1', [enrollment_id,branch_id,section,current_semester_number,cgpi,credits_completed,is_verified,grade_card,medal])
         .then(response => {
             res.status(200).send(`Student : ${enrollment_id} data updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)

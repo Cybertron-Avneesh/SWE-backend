@@ -63,7 +63,7 @@ exports.createdb = async function (req, res) {
         //courses
         await createTable('CREATE TABLE course(course_id VARCHAR(100) PRIMARY KEY,semester_id VARCHAR(100) REFERENCES semester(semester_id),branch_id VARCHAR(100) REFERENCES branch(branch_id),course_name VARCHAR(200),credits INT NOT NULL)', 'course');
         //student
-        await createTable('CREATE TABLE student(enrollment_id VARCHAR(100) PRIMARY KEY,email_id VARCHAR(100),name VARCHAR(500),dob VARCHAR(200),age INT,photo VARCHAR(100),phone_number INT,address VARCHAR(1000),program_id VARCHAR(100) REFERENCES program(program_id),branch_id VARCHAR(100) REFERENCES branch(branch_id),section VARCHAR(100),current_semester_number INT,cgpi float,credits_completed INT);', 'student');
+        await createTable('CREATE TABLE student(enrollment_id VARCHAR(100) PRIMARY KEY,email_id VARCHAR(100),name VARCHAR(500),dob VARCHAR(200),age INT,photo VARCHAR(100),phone_number INT,address VARCHAR(1000),program_id VARCHAR(100) REFERENCES program(program_id),branch_id VARCHAR(100) REFERENCES branch(branch_id),section VARCHAR(100),current_semester_number INT,cgpi float,credits_completed INT,is_verified INT,grade_card VARCHAR(100),medal VARCHAR(100));', 'student');
         //marks
         await createTable('CREATE TABLE marks(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,course_id VARCHAR(100) REFERENCES course(course_id),c1 INT,c2 INT,c3 INT);', 'marks');
         //results
