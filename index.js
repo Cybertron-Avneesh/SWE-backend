@@ -13,6 +13,8 @@ const { Course } = require('./functionalities/masters/course.js');
 const { getlog } = require('./functionalities/logs.js');
 
 const { Student } = require('./functionalities/student/student.js');
+const { Disciplinary } = require('./functionalities/student/disciplinary.js');
+
 
 
 
@@ -45,6 +47,8 @@ app.post('/masters/semester', Semester);
 app.post('/masters/course', Course);
 app.get('/logs',getlog);
 app.post(`/student/create/*`,Student);
+app.post(`/student/disciplinary`,Disciplinary);
+
 
 
 
