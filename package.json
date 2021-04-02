@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
 
-    "test": "mocha './test/logs.test.js'"
+    "test": "mocha './test/disciplinary.test.js'"
     
   },
   "repository": {

@@ -12,12 +12,12 @@ exports.Notification = async function (req, res) {
     if (action == 1) {
         var addNotificaitonStatus = await addNotification(req, res);
 
-        // return addProgramStatus;
+        return addNotificaitonStatus;
     }
     else if (action == 2) {
 
         var listNotificaitonStatus = listNotification(req, res)
-        // return listProgramStatus;
+         return listNotificaitonStatus;
     }
 
 
@@ -37,7 +37,7 @@ async function addNotification(req,res){
             res.status(200).send(`Notification : ${description} sent successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            // ret = { msg: "programm added" };
+            ret = { msg: "Notification Added" };
 
         })
         .catch(err => {
@@ -47,6 +47,7 @@ async function addNotification(req,res){
 
         })
     await client.end();
+    return ret;
 }
 
 async function listNotification(req, res) {
