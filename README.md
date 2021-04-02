@@ -43,7 +43,7 @@ To fill some dummy data
 Enter user_id and password for authentication
 <br><br>
 **USE POSTMAN**<br>
-```
+```json
 {
     "user_id":"iib2019050",
     "password":"iib2019050",
@@ -61,7 +61,7 @@ Enter user_id,name,photo,admin_level for adding user<br>
 >2 : System Admin<br>
 
 **USE POSTMAN**<br>
-```
+```json
 {
     "my_id":"iib2019050",
     "my_level":2,
@@ -83,7 +83,7 @@ Enter 'admin_level' for viewing Filtered Users List<br>
 >3 : View All Users<br>
 
 **USE POSTMAN**<br>
-```
+```json
 Expected json
 {
     "my_id":"iib2019050",
@@ -98,7 +98,7 @@ Enter user_id of operating user and value of 'has_access'<br>
 <br><br>
 
 **USE POSTMAN**<br>
-```
+```json
 Expected json
 {
     "my_id":"iib2019051",
@@ -121,7 +121,7 @@ Route is self explanatory<br>
 <br>
 **USE POSTMAN**<br>
 
-```
+```json
 Expected json for Create
 {
     "my_id":"iib2019051",
@@ -134,3 +134,49 @@ Expected json for Create
 7. `/masters/branch?action='action num'`
 8. `/masters/semester?action='action num'`
 9. `/masters/course?action='action num'`
+10. `/logs`
+
+List all logs.<br>
+
+11. `student/create/*?action='action num'`
+**Add Student** <br>
+Use `student/create?action=1`<br><br>
+**Get Detail of Student**<br>
+Use `student/create/roll_num?action=2'`<br><br>
+**Update Student**<br>
+Use `student/create?action=3`<br><br>
+**Delete Student**<br>
+Use `student/create?action=4`<br><br>
+
+12. `student/desciplinary?action='action num'`
+13. `student/notification?action='action num'`
+
+Two types of notification<br>
+
+**1) Specific Student**<br>
+**1) Broadcast**<br>
+
+```json
+Expected json for Create
+{
+    "my_id":"iib2019051",
+    "my_level":1,
+    "enrollment_id":"iib2019002",
+    "description":"Kya haal h"
+}
+Note : For Broadcast -> "enrollment_id":"" rest is same
+```
+<br><br>
+
+```json
+Expected json for View
+{
+    "my_id":"iib2019051",
+    "my_level":1,
+    "enrollment_id":"iib2019002"
+}
+Note : For Broadcast -> "enrollment_id":"" rest is same
+```
+For viewing notification "my_id" is used when notification is broadcase for creating log.
+
+

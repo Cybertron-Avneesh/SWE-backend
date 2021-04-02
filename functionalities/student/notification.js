@@ -5,18 +5,18 @@ const { Client } = require('../../utils/db.js');
 const { createlog, getuserType } = require('../logs.js');
 var my_id;
 var my_level;
-exports.Disciplinary = async function (req, res) {
+exports.Notification = async function (req, res) {
     const action = req.query.action;
     my_id = req.body.my_id;
     my_level = req.body.my_level;
     if (action == 1) {
-        var addDisplinaryStatus = await addDisciplinary(req, res);
+        var addNotificaitonStatus = await addNotification(req, res);
 
         // return addProgramStatus;
     }
     else if (action == 2) {
 
-        var listDisplinaryStatus = listDisciplinary(req, res)
+        var listNotificaitonStatus = listNotification(req, res)
         // return listProgramStatus;
     }
 
@@ -24,45 +24,50 @@ exports.Disciplinary = async function (req, res) {
 }
 
 
-async function addDisciplinary(req,res){
-    const enrollment_id = req.body.enrollment_id;
-    const action = req.body.action;
-    const reason = req.body.reason;
+async function addNotification(req,res){
+    var enrollment_id = req.body.enrollment_id;
+    const description = req.body.description;
+    if(!enrollment_id) enrollment_id = "";
     const client = await Client();
-    const log_message = `Disciplinary action : '${action}' for : ${enrollment_id}, taken by ${my_id}`;
+    const log_message = `Notification : '${description}' for : ${enrollment_id}, added by ${my_id}`;
 
     await client
-        .query('INSERT INTO disciplinary_actions VALUES($1,$2,$3,NOW())', [enrollment_id, action,reason])
+        .query('INSERT INTO notification VALUES($1,$2,NOW())', [enrollment_id, description])
         .then(response => {
-            res.status(200).send(`Disciplinary action : ${action} taken successfully`)
+            res.status(200).send(`Notification : ${description} sent successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
             // ret = { msg: "programm added" };
 
         })
         .catch(err => {
-            res.status(400).send("Unable to take action")
-            // console.log(`programAddError : ${err}`)
+            res.status(400).send("Unable to send notification")
+            console.log(`Notification_add_rrr : ${err}`)
             // ret = { msg: "error " }
 
         })
     await client.end();
 }
 
-async function listDisciplinary(req, res) {
+async function listNotification(req, res) {
 
-    const log_message = `Disciplinary List viewed by ${my_id}`;
 
+    const enrollment_id = req.body.enrollment_id;
+    var log_message;
+    if(enrollment_id!=="")
+    log_message = `Notifications received by ${enrollment_id}`;
+    else
+    log_message = `Notifications received by ${my_id}`;
 
     const client = await Client();
     var ret;
     await client
-        .query('SELECT * FROM disciplinary_actions')
+        .query('SELECT * FROM notification WHERE enrollment_id=$1',[enrollment_id])
         .then(response => {
             res
                 .status(200)
                 .json({
-                    actions: response.rows
+                    Notifications: response.rows
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message)

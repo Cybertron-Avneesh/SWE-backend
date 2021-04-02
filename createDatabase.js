@@ -30,6 +30,7 @@ exports.createdb = async function (req, res) {
     try {
         client = await Client();
         //Warning : Dropping sequence is imp as foreign key constraints may interfere
+        await dropTable('notification');
         // await dropTable('logs');
         // await dropTable('user_table');
         // await dropTable('ldap');
@@ -72,7 +73,9 @@ exports.createdb = async function (req, res) {
         await createTable('CREATE TABLE fees(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,fee_status INT)', 'fees');
         //disciplinary_actions
         await createTable('CREATE TABLE disciplinary_actions(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),action VARCHAR(500),reason VARCHAR(1000),time timestamp)', 'disciplinary_actions');
-
+        //notifications
+        await createTable('CREATE TABLE notification(enrollment_id VARCHAR(100),description VARCHAR(500),time timestamp)', 'disciplinary_actions');
+        
         res.status(200).send("DB created");
         await client.end();
     } catch (err) {
