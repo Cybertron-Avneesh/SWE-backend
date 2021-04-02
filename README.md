@@ -138,7 +138,7 @@ Expected json for Create
 
 List all logs.<br>
 
-11. `student/create/*?action='action num'`
+11. `student/create/*?action='action num'`<br>
 **Add Student** <br>
 Use `student/create?action=1`<br><br>
 **Get Detail of Student**<br>
