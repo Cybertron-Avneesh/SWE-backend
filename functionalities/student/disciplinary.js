@@ -36,12 +36,12 @@ async function addDisciplinary(req,res){
     await client
         .query('INSERT INTO disciplinary_actions VALUES($1,$2,$3,NOW())', [enrollment_id, action,reason])
         .then(response => {
-           console.log(log_message);
+         //  console.log(log_message);
             res.status(200).send(`Disciplinary action : ${action} taken successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
              ret = { msg: "Disciplinary action : Added" }
-            console.log(ret);
+           // console.log(ret);
         })
         .catch(err => {
             res.status(400).send("Unable to take action")

@@ -24,7 +24,7 @@ describe('Disciplinary  ', function () {
 
         const result = await app.Disciplinary({ body: {my_id:"1",my_level:2,enrollment_id:"IIB2019000",action:"Test action",reason:"Test reason"}, query:{action:1}}, res);
      //   console.log(result);
-        assert.deepEqual(result, { msg: "error " }
+        assert.deepEqual(result, { msg: "Disciplinary action : Added" }
         );
 
     });
