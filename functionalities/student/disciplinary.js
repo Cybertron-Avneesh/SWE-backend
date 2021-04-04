@@ -12,12 +12,12 @@ exports.Disciplinary = async function (req, res) {
     if (action == 1) {
         var addDisplinaryStatus = await addDisciplinary(req, res);
 
-        // return addProgramStatus;
+         return addDisplinaryStatus;
     }
     else if (action == 2) {
 
         var listDisplinaryStatus = listDisciplinary(req, res)
-        // return listProgramStatus;
+         return listDisplinaryStatus;
     }
 
 
@@ -28,25 +28,30 @@ async function addDisciplinary(req,res){
     const enrollment_id = req.body.enrollment_id;
     const action = req.body.action;
     const reason = req.body.reason;
+
+
     const client = await Client();
     const log_message = `Disciplinary action : '${action}' for : ${enrollment_id}, taken by ${my_id}`;
 
     await client
         .query('INSERT INTO disciplinary_actions VALUES($1,$2,$3,NOW())', [enrollment_id, action,reason])
         .then(response => {
+         //  console.log(log_message);
             res.status(200).send(`Disciplinary action : ${action} taken successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            // ret = { msg: "programm added" };
-
+             ret = { msg: "Disciplinary action : Added" }
+           // console.log(ret);
         })
         .catch(err => {
             res.status(400).send("Unable to take action")
             // console.log(`programAddError : ${err}`)
-            // ret = { msg: "error " }
+             ret = { msg: "error " }
 
         })
     await client.end();
+
+    return ret;
 }
 
 async function listDisciplinary(req, res) {
