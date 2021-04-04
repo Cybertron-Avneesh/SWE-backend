@@ -44,11 +44,11 @@ exports.createUser = async function (req, res) {
                 console.log(`${err}`);
                 res.status(400).send({ msg: `${err}` });
             });
-        await client.end();
+        await client.release();
 
         return { msg: "User created" };
     } else {
-        await client.end();
+        await client.release();
 
         res
             .status(400)

@@ -51,7 +51,7 @@ async function addSemester(req, res) {
             ret = {msg : "Unable to add semester"}
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -82,7 +82,7 @@ async function listSemester(req, res) {
             ret= {msg : "Semeser Listed"}
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -107,7 +107,7 @@ async function listSemester(req, res) {
 //             res.status(400).send("Unable to update semester")
 //         })
 
-//     await client.end();
+//     await client.release();
 
 // }
 async function deleteSemester(req, res) {
@@ -130,7 +130,7 @@ async function deleteSemester(req, res) {
             ret = { msg :"Semester not deleted"}
         })
 
-    await client.end();
+    await client.release();
     return ret;
 
 }

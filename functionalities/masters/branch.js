@@ -52,7 +52,7 @@ async function addBranch(req, res) {
             ret = { msg: "Branch Not Added" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -82,7 +82,7 @@ async function listBranch(req, res) {
             ret = { msg: "Unable to List branch" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -109,7 +109,7 @@ async function updateBranch(req, res) {
             ret = { msg: "Branch  not updated" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -137,7 +137,7 @@ async function deleteBranch(req, res) {
             ret = { msg: "Branch not deleted " }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 

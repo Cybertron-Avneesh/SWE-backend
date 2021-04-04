@@ -45,6 +45,6 @@ exports.grantRevoke = async function (req, res) {
 
                 ret = {  msg: 'Cannot Update Permission'};
         });
-    await client.end();
+    await client.release();
     return ret;
 }

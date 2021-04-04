@@ -58,7 +58,7 @@ async function addProgram(req, res) {
             ret = { msg: "error " }
 
         })
-    await client.end();
+    await client.release();
     return ret;
 
 }
@@ -85,7 +85,7 @@ async function listProgram(req, res) {
             res.status(400).send("Unable to list programs")
             ret = { msg: "Listing unsuccessful" }
         })
-    await client.end();
+    await client.release();
     return ret;
 
 }
@@ -109,7 +109,7 @@ async function updateProgram(req, res) {
             ret = { msg: "Update unsuccessfull" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -133,7 +133,7 @@ async function deleteProgram(req, res) {
             res.status(400).send("Unable to remove program")
             ret ={ msg: "Deletion  unsuccessfull "}
         })
-    await client.end();
+    await client.release();
 
     return ret;
 

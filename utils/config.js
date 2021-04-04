@@ -5,8 +5,9 @@ const pool = new Pool({
     host: 'localhost',
     database: 'amsaaa',
     password: 'password',
-    port: 5433
-
+    port: 5432,
+    idleTimeoutMillis: 10,
+    
 });
 
 exports.pool = pool;

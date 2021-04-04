@@ -28,7 +28,7 @@ exports.verifyUser = async function (req, res) {
         })
         .catch(err => console.log(`${err}`))
 
-    await client.end();
+    await client.release();
 
 
 
@@ -43,7 +43,7 @@ exports.verifyUser = async function (req, res) {
             .end();
 
         createlog(user_id, getuserType(admin_level), log_message);
-        await client.end();
+        await client.release();
 
         // return {
         //     name: data.rows[0].name,
@@ -60,7 +60,7 @@ exports.verifyUser = async function (req, res) {
                 msg: "Authentication Failed"
             })
             .end();
-        await client.end();
+        await client.release();
 
         return { msg: "Authentication Failed" }
     }

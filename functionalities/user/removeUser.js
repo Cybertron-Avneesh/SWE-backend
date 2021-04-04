@@ -28,7 +28,7 @@ exports.removeUser = async function (req, res) {
 
             return {msg :"User not found"}
         });
-    await client.end();
+    await client.release();
 
     return ret;
 

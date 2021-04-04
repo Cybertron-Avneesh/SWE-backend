@@ -77,7 +77,7 @@ exports.createdb = async function (req, res) {
         await createTable('CREATE TABLE notification(enrollment_id VARCHAR(100),description VARCHAR(500),time timestamp)', 'disciplinary_actions');
         
         res.status(200).send("DB created");
-        await client.end();
+        await client.release();
     } catch (err) {
         console.log(`${err}`);
         res.status(400).send("Unable to create DB");

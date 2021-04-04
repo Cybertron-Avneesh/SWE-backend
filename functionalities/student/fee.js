@@ -54,7 +54,7 @@ async function addFees(req,res){
              ret = { msg: "Fess not added " }
 
         })
-    await client.end();
+    await client.release();
     return ret;
 }
 
@@ -98,7 +98,7 @@ async function listFees(req, res) {
             console.log(`FeeListErr : ${err}`)
             // ret = { msg: "Listing unsuccessful" }
         })
-    await client.end();
+    await client.release();
     return ret;
 
 }
@@ -125,7 +125,7 @@ async function updateFees(req,res){
             ret = { msg: "Student fee status not updated" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 }

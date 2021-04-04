@@ -49,7 +49,7 @@ async function addDisciplinary(req,res){
              ret = { msg: "error " }
 
         })
-    await client.end();
+    await client.release();
 
     return ret;
 }
@@ -77,7 +77,7 @@ async function listDisciplinary(req, res) {
             res.status(400).send("Unable to list actions")
             // ret = { msg: "Listing unsuccessful" }
         })
-    await client.end();
+    await client.release();
     return ret;
 
 }

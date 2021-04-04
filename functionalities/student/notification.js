@@ -46,7 +46,7 @@ async function addNotification(req,res){
             // ret = { msg: "error " }
 
         })
-    await client.end();
+    await client.release();
     return ret;
 }
 
@@ -78,7 +78,7 @@ async function listNotification(req, res) {
             res.status(400).send("Unable to list actions")
             // ret = { msg: "Listing unsuccessful" }
         })
-    await client.end();
+    await client.release();
     return ret;
 
 }

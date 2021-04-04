@@ -19,8 +19,8 @@ exports.createlog = async function (user_id, user_type, action) {
              ret={msg: "logs created"}
         )
         .catch((err) => console.log(`Log Error : ${err}`));
-
-    await client.end();
+    client.release();
+    // await client.end();
 
     return ret;
 }
@@ -52,7 +52,7 @@ exports.getlog = async function(req,res){
             ret= { msg: 'Cannot Get Users List' }
 
         });
-
-    await client.end();
+    client.release();
+    // await client.end();
     return ret;
 }

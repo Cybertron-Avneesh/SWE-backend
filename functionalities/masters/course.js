@@ -64,7 +64,7 @@ async function addCourse(req, res) {
             ret = { msg:"Unable to add course" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret ;
 
@@ -94,7 +94,7 @@ async function listCourse(req, res) {
             ret = { msg :"Unable to list course "}
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -123,7 +123,7 @@ async function updateCourse(req, res) {
             ret = { msg : "Unable to update course"}
         })
 
-    await client.end();
+    await client.release();
     return ret;
 
 }
@@ -148,7 +148,7 @@ async function deleteCourse(req, res) {
             ret = { msg :"Course not deleted "}
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 

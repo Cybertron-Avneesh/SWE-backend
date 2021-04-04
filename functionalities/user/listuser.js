@@ -43,8 +43,8 @@ exports.listUser = async function (req, res) {
             ret= { msg: 'Cannot Get Users List' }
 
         });
-
-        await client.end();
+        client.release();
+        // await client.end();
 
         return ret;
 

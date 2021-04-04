@@ -71,7 +71,7 @@ async function addStudent(req, res) {
             ret = { msg: "Student Not Added" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -104,7 +104,7 @@ async function listStudent(req, res) {
             ret = { msg: "Unable to List Student Data" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -144,7 +144,7 @@ async function updateStudent(req, res) {
             ret = { msg: "Student data not updated" }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
@@ -171,7 +171,7 @@ async function deleteStudent(req, res) {
             ret = { msg: "Student not un-enrolled " }
         })
 
-    await client.end();
+    await client.release();
 
     return ret;
 
