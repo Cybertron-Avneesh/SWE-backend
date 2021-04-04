@@ -63,7 +63,7 @@ async function listNotification(req, res) {
     const client = await Client();
     var ret;
     await client
-        .query('SELECT * FROM notification WHERE enrollment_id=$1',[enrollment_id])
+        .query('SELECT * FROM notification WHERE enrollment_id=$1 or enrollment_id=$2',[enrollment_id, ""])
         .then(response => {
             res
                 .status(200)
