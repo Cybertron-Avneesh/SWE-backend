@@ -12,15 +12,19 @@ exports.Fees = async function (req, res) {
     if (action == 1) {
         var addFeeStatus = await addFees(req, res);
 
-        // return addProgramStatus;
+         return addFeeStatus;
     }
     else if (action == 2) {
 
         var listFeeStatus =await listFees(req, res)
+
+        return listFeeStatus;
         // return listProgramStatus;
     }
     else if (action == 3){
         var updateFeeStatus = await updateFees(req,res);
+
+        return updateFeeStatus;
     }
 
 }
@@ -41,16 +45,17 @@ async function addFees(req,res){
             res.status(200).send(`Fee for : ${enrollment_id} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            // ret = { msg: "programm added" };
+             ret = { msg: "Fees added" };
 
         })
         .catch(err => {
             res.status(400).send("Unable to add fees")
             console.log(`Fee_add_Err : ${err}`)
-            // ret = { msg: "error " }
+             ret = { msg: "Fess not added " }
 
         })
     await client.end();
+    return ret;
 }
 
 async function listFees(req, res) {
@@ -81,7 +86,12 @@ async function listFees(req, res) {
                 })
                 .end();
             createlog(my_id, getuserType(my_level), log_message)
-            ret = { msg: "Listed succesfull" }
+
+            if(enrollment_id==="")
+            ret = { msg: "Listed succesfull for all student" }
+            else
+            ret = { msg: "Listed succesfull for Specific student" }
+
         })
         .catch(err => {
             res.status(400).send("Unable to list Fees status")
