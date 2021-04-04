@@ -15,7 +15,7 @@ const { getlog } = require('./functionalities/logs.js');
 const { Student } = require('./functionalities/student/student.js');
 const { Disciplinary } = require('./functionalities/student/disciplinary.js');
 const { Notification } = require('./functionalities/student/notification.js');
-
+const { Fees } = require('./functionalities/student/fee.js')
 
 
 
@@ -48,6 +48,7 @@ app.get('/logs',getlog);
 app.post(`/student/create/*`,Student);
 app.post(`/student/disciplinary`,Disciplinary);
 app.post(`/student/notification`,Notification);
+app.post(`/student/fees`,Fees);
 
 
 
