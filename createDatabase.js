@@ -70,7 +70,7 @@ exports.createdb = async function (req, res) {
         //results
         await createTable('CREATE TABLE results(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,total_credits INT,gpa float)', 'results');
         //fees
-        await createTable('CREATE TABLE fees(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,fee_status INT)', 'fees');
+        await createTable('CREATE TABLE fees(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,fee_status INT, payment_date VARCHAR(100))', 'fees');
         //disciplinary_actions
         await createTable('CREATE TABLE disciplinary_actions(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),action VARCHAR(500),reason VARCHAR(1000),time timestamp)', 'disciplinary_actions');
         //notifications

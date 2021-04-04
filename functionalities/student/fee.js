@@ -34,13 +34,14 @@ async function addFees(req,res){
     const enrollment_id = req.body.enrollment_id;
     const semester_number = req.body.semester_number;
     const fee_status = req.body.fee_status;
+    const payment_date = req.body.payment_date;
 
     // if(!enrollment_id) enrollment_id = "";
     const client = await Client();
     const log_message = `Fee of student : ${enrollment_id}, added for sem : ${semester_number} by ${my_id}`;
-
+    
     await client
-        .query('INSERT INTO fees VALUES($1,$2,$3)', [enrollment_id, semester_number,fee_status])
+        .query('INSERT INTO fees VALUES($1,$2,$3,$4)', [enrollment_id, semester_number,fee_status, payment_date])
         .then(response => {
             res.status(200).send(`Fee for : ${enrollment_id} added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
@@ -107,6 +108,7 @@ async function updateFees(req,res){
     const enrollment_id = req.body.enrollment_id;
     const fee_status = req.body.fee_status;
     const semester_number = req.body.semester_number;
+    const payment_date = req.body.payment_date;
 
     const log_message = `Fee status for : '${enrollment_id}' changed to : ${fee_status} by ${my_id}`;
 
@@ -114,7 +116,7 @@ async function updateFees(req,res){
     const client = await Client();
     var ret;
     await client
-        .query('UPDATE fees SET fee_status=$3 WHERE enrollment_id=$1 AND semester_number=$2', [enrollment_id,semester_number,fee_status])
+        .query('UPDATE fees SET fee_status=$3, payment_date=$4 WHERE enrollment_id=$1 AND semester_number=$2', [enrollment_id,semester_number,fee_status, payment_date])
         .then(response => {
             res.status(200).send(`Fee Status for : ${enrollment_id} updated successfully`)
             createlog(my_id, getuserType(my_level), log_message)
