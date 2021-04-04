@@ -36,3 +36,7 @@ mocha ./test/disciplinary.test.js
 echo "__________________________________________________________"
 
 mocha ./test/notification.test.js
+
+echo "__________________________________________________________"
+
+mocha ./test/fee.test.js
