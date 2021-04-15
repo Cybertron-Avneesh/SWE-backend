@@ -29,10 +29,10 @@ exports.Student = async function (req, res) {
         return deleteBranchStatus;
     }
     else if(action == 5){
-        var listAlumniStatus = listAlumni(req,res);
+        var listAlumniStatus = listAlumni(req,res);      //archive
     }
     else if(action == 6){
-        var listAlumniStatus = listStudentAll(req,res);
+        var listAlumniStatus = listStudentAll(req,res);  // Will be used for award
     }
 }
 

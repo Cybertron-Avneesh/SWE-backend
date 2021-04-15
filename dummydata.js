@@ -66,7 +66,6 @@ exports.fillDummydata = async function (req, res) {
             .then(res => console.log("Data added"))
             .catch(err => console.log(`${err}`));
 
-
         res.status(200).send("Data filled");
         await client.release();
 
