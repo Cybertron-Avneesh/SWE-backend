@@ -18,6 +18,7 @@ const { Notification } = require('./functionalities/student/notification.js');
 const { Fees } = require('./functionalities/student/fee.js')
 const { UpdateSemester } = require('./functionalities/student/updateSemester.js')
 const { resultCompilation } = require('./functionalities/student/resultCompilation');
+const { assessment } = require('./functionalities/student/assessment.js');
 
 
 
@@ -55,6 +56,8 @@ app.post(`/student/fees`,Fees);
 app.post(`/student/updateSemester`,UpdateSemester);
 app.post(`/student/updateSemester`,UpdateSemester);
 app.post('/student/resultCompilation',resultCompilation);
+app.post('/student/assessment',assessment);
+
 
 
 
