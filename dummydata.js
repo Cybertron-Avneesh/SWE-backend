@@ -60,6 +60,13 @@ exports.fillDummydata = async function (req, res) {
             .then(res => console.log("Data added"))
             .catch(err => console.log(`${err}`));
 
+        //alumni
+        await client
+            .query("INSERT INTO alumni (enrollment_id,email_id,name,dob,age,photo,phone_number,address,program_id,branch_id,section,cgpi,credits_completed,is_verified,grade_card,medal) VALUES ('iib2019001','iib2019001@iiita.ac.in','harsh','01-01-01',20,'',8989,'indore','B.Tech','IT-BI','C',9.9,160,1,'',3)")
+            .then(res => console.log("Data added"))
+            .catch(err => console.log(`${err}`));
+
+
         res.status(200).send("Data filled");
         await client.release();
 

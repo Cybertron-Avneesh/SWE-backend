@@ -28,6 +28,9 @@ exports.Student = async function (req, res) {
         var deleteBranchStatus = deleteStudent(req, res);
         return deleteBranchStatus;
     }
+    else if(action == 5){
+        var listAlumniStatus = listAlumni(req,res);
+    }
 }
 
 async function addStudent(req, res) {
@@ -102,6 +105,34 @@ async function listStudent(req, res) {
         .catch(err => {
             res.status(400).send("Unable to List branch")
             ret = { msg: "Unable to List Student Data" }
+        })
+
+    await client.release();
+
+    return ret;
+
+}
+async function listAlumni(req, res) {
+    const log_message = `Alumni Viewed by ${my_id}`;
+
+
+    const client = await Client();
+    var ret;
+    await client
+        .query('SELECT * FROM alumni')
+        .then(response => {
+            res
+                .status(200)
+                .json({
+                    alumni: response.rows
+                })
+                .end();
+            createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg: "Successfully listed alumni data " }
+        })
+        .catch(err => {
+            res.status(400).send("Unable to List alumni")
+            ret = { msg: "Unable to List alumni Data" }
         })
 
     await client.release();
