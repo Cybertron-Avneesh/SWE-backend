@@ -31,6 +31,9 @@ exports.Student = async function (req, res) {
     else if(action == 5){
         var listAlumniStatus = listAlumni(req,res);
     }
+    else if(action == 6){
+        var listAlumniStatus = listStudentAll(req,res);
+    }
 }
 
 async function addStudent(req, res) {
@@ -112,6 +115,36 @@ async function listStudent(req, res) {
     return ret;
 
 }
+
+async function listStudentAll(req, res) {
+    const log_message = `List Viewed by ${my_id}`;
+
+
+    const client = await Client();
+    var ret;
+    await client
+        .query('SELECT * FROM student')
+        .then(response => {
+            res
+                .status(200)
+                .json({
+                    alumni: response.rows
+                })
+                .end();
+            createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg: "Successfully listed student data " }
+        })
+        .catch(err => {
+            res.status(400).send("Unable to List student")
+            ret = { msg: "Unable to List alumni Data" }
+        })
+
+    await client.release();
+
+    return ret;
+
+}
+
 async function listAlumni(req, res) {
     const log_message = `Alumni Viewed by ${my_id}`;
 
