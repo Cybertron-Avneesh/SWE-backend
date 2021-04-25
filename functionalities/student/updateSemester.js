@@ -37,20 +37,26 @@ exports.UpdateSemester = async function (req, res) {
                     success = 0;
                 })
                 await client1.release();
+                
 
             });
 
             if(success){
                 createlog(my_id, getuserType(my_level), log_message)
                 res.status(200).send(`Students of : ${program_id} are upgraded to next semester successfully`)
+                ret = { msg :"Semester updated"}
+                
             }else{
                 res.status(400).send("Unable to Upgrade Semester")
+                ret = { msg :"Semester  not updated"}
             }
         })
         .catch(err => {
             res.status(400).send("Unable to Upgrade Semester")
+            ret = { msg :"Semester  not updated"}
         })
 
     await client.release();
+    return ret;
 
 }

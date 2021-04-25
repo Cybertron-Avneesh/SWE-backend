@@ -10,9 +10,11 @@ exports.resultCompilation = async function (req, res) {
     my_id = req.body.my_id;
     my_level = req.body.my_level;
     if(action==1){
-        addResult(req,res);
+        var addResultStatus= addResult(req,res);
+        return addResultStatus;
     }else if(action==2){
-        listResult(req,res);
+         var listResultStatus=listResult(req,res);
+         return listResultStatus;
     }
 
 }
@@ -25,7 +27,7 @@ async function addResult(req,res){
 
     const client = await Client();
     const log_message = `Result added for : '${enrollment_id}', by ${my_id}`;
-
+    var ret;
     await client
         .query('INSERT INTO results VALUES($1,$2,$3,$4)', [enrollment_id, semester_number,total_credits,sgpi])
         .then(response => {
@@ -33,16 +35,17 @@ async function addResult(req,res){
             res.status(200).send(`Result added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            //  ret = { msg: "Disciplinary action : Added" }
+             ret = { msg: "results : Added" }
            // console.log(ret);
         })
         .catch(err => {
             res.status(400).send("Unable to add result")
             console.log(`resultAddError : ${err}`)
-            //  ret = { msg: "error " }
+             ret = { msg: "error " }
 
         })
     await client.release();
+    return ret;
 }
 
 async function listResult(req, res) {

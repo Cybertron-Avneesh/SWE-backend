@@ -43,7 +43,8 @@ exports.verifyUser = async function (req, res) {
             .end();
 
         createlog(user_id, getuserType(admin_level), log_message);
-        await client.release();
+        return { msg: 'Authentication Verified' }
+      //  await client.release();
 
         // return {
         //     name: data.rows[0].name,
@@ -51,7 +52,7 @@ exports.verifyUser = async function (req, res) {
         //     user_id: data.rows[0].user_id
         // }
 
-        return { msg: 'Authentication Verified' }
+     
 
     } else {
         res
@@ -60,9 +61,10 @@ exports.verifyUser = async function (req, res) {
                 msg: "Authentication Failed"
             })
             .end();
-        await client.release();
-
         return { msg: "Authentication Failed" }
+      //  await client.release();
+
+     
     }
 
 

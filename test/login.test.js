@@ -22,7 +22,7 @@ const res = {
 describe('Login ', function () {
     it("verifies  valid log in details", async function () {
 
-        const result = await app.verifyUser({ body: { user_id: "iib2019052", password: "iib2019052", admin_level: 0 } }, res);
+        const result = await app.verifyUser({ body: { user_id: "iib2019053", password: "iib2019053", admin_level: 0 } }, res);
      // console.log(result);
      assert.deepEqual(result, { msg: 'Authentication Verified' });
 
