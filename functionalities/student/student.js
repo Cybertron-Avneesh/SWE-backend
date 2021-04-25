@@ -150,7 +150,7 @@ async function listAlumni(req, res) {
 
 
     const client = await Client();
-    var ret;
+    //var ret= { msg: "Successfully listed alumni data " };
     await client
         .query('SELECT * FROM alumni')
         .then(response => {
@@ -169,7 +169,7 @@ async function listAlumni(req, res) {
         })
 
     await client.release();
-
+    console.log(ret)
     return ret;
 
 }

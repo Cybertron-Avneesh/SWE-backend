@@ -45,3 +45,8 @@ mocha ./test/fee.test.js
 echo "__________________________________________________________"
 
 mocha ./test/assessment.test.js
+
+
+echo "__________________________________________________________"
+
+mocha ./test/updateSemester.test.js

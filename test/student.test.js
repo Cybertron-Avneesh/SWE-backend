@@ -46,7 +46,19 @@ const newStudent ={
      query:{action:1}
     
     }
-
+    const listalumni ={ 
+    
+        body:
+         {
+         my_id :"1",
+         my_level:2,
+    
+    
+        },
+         query:{action:5}
+        
+        }
+    
 
 const updateStudent ={ 
     
@@ -113,6 +125,14 @@ describe('Student Use case ', function () {
 
     });
 
+
+    // it("verifies  list alumni function  with valid input", async function () {
+
+    //     const result = await app.Student(listalumni, res);
+    //     console.log(result);
+    //     assert.deepEqual(result,  { msg: "Successfully listed alumni data " });
+
+    // });
 
 
 
