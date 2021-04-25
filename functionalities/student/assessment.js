@@ -20,7 +20,7 @@ exports.assessment = async function (req, res) {
     const client = await Client();
     const log_message = `Marks added for : '${enrollment_id}', by ${my_id}`;
     // console.log(semester_number);
-    
+    var ret;
     await client
         .query('INSERT INTO marks VALUES($1,$2,$3,$4,$5,$6)', [enrollment_id, semester_number,course_id,c1,c2,c3])
         .then(response => {
@@ -28,7 +28,7 @@ exports.assessment = async function (req, res) {
             res.status(200).send(`Result added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            //  ret = { msg: "Disciplinary action : Added" }
+            ret = { msg: "marks added" }
            // console.log(ret);
         })
         .catch(err => {
@@ -38,5 +38,6 @@ exports.assessment = async function (req, res) {
 
         })
     await client.release();
+    return ret;
     
 }

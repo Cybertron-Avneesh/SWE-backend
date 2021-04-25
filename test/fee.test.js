@@ -27,6 +27,7 @@ const newFee ={
      enrollment_id:"IIB2019051",
      semester_number:4,
      fee_status:0,
+     payment_date:"12/4/12"
     },
      query:{action:1}
     
@@ -43,6 +44,7 @@ const updateStudent ={
      enrollment_id:"IIB2019051",
      semester_number:4,
      fee_status:1,
+     payment_date:"12/4/10"
 
     },
      query:{action:3}

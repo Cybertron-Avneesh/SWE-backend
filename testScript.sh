@@ -40,3 +40,8 @@ mocha ./test/notification.test.js
 echo "__________________________________________________________"
 
 mocha ./test/fee.test.js
+
+
+echo "__________________________________________________________"
+
+mocha ./test/assessment.test.js
