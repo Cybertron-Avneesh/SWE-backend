@@ -1,5 +1,7 @@
 const { createdb } = require('./createDatabase.js');
 const { fillDummydata } = require('./dummydata.js');
+const { alterTable } = require('./alterTable.js');
+
 const { verifyUser } = require('./functionalities/auth/login.js');
 const { listUser } = require('./functionalities/user/listuser.js');
 const { createUser } = require('./functionalities/user/createUser.js');
@@ -39,6 +41,7 @@ app.use(function (req, res, next) {
 
 app.get('/createdb', createdb);
 app.get('/filldummydata', fillDummydata);
+app.get('/alterTable', alterTable);
 app.post('/login', verifyUser);
 app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
