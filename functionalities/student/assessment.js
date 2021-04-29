@@ -5,13 +5,20 @@ const { createlog, getuserType } = require('../logs.js');
 var my_id;
 var my_level;
 
-exports.assessment = async function (req, res) {
+exports.assessment = async function(req,res){
+    const action = req.query.action;
     my_id = req.body.my_id;
     my_level = req.body.my_level;
+    if(action==1){
+        addAssessment(req,res);
+    }else if(action==2){
+        listAssessment(req,res);
+    }
+}
+
+async function addAssessment (req, res) {
     const enrollment_id = req.body.enrollment_id;
     const semester_number = req.body.semester_number;
-    // const total_credits = req.body.total_credits;
-    // const sgpi = req.body.sgpi;
     const c1 = parseInt(req.body.c1);
     const c2 = parseInt(req.body.c2);
     const c3 = parseInt(req.body.c3);
@@ -38,6 +45,31 @@ exports.assessment = async function (req, res) {
 
         })
     await client.release();
+    return ret;   
+}
+
+async function listAssessment(req,res){
+    const log_message = `Assessment compiled by ${my_id}`;
+    const enrollment_id = req.body.enrollment_id;
+
+    const client = await Client();
+    var ret;
+    await client
+        .query('SELECT * FROM marks WHERE enrollment_id=$1',[enrollment_id])
+        .then(response => {
+            res
+                .status(200)
+                .json({
+                    assessment: response.rows
+                })
+                .end();
+            createlog(my_id, getuserType(my_level), log_message)
+            ret = { msg: "Listing succesfull" }
+        })
+        .catch(err => {
+            res.status(400).send("Unable to list marks")
+            // ret = { msg: "Listing unsuccessful" }
+        })
+    await client.release();
     return ret;
-    
 }
