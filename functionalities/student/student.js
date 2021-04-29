@@ -83,18 +83,22 @@ async function addStudent(req, res) {
 
 }
 async function listStudent(req, res) {
+    var query;
     let pathname = req.url;
     pathname = pathname.split("/");
     var enrollment_id = pathname[pathname.length-1];
     enrollment_id = enrollment_id.split("?");
     enrollment_id = enrollment_id[0];
     const log_message = `Student : ${enrollment_id} Viewed by ${my_id}`;
-
-
+    const program_id = req.body.program_id;
+    // console.log(enrollment_id)
+    if(enrollment_id) query = `SELECT * FROM student WHERE enrollment_id='${enrollment_id}'`
+    else if(program_id) query = `SELECT * FROM student WHERE program_id='${program_id}'`
+    // console.log(query)
     const client = await Client();
     var ret;
     await client
-        .query('SELECT * FROM student WHERE enrollment_id=$1', [enrollment_id])
+        .query(query)
         .then(response => {
             res
                 .status(200)
@@ -108,6 +112,7 @@ async function listStudent(req, res) {
         .catch(err => {
             res.status(400).send("Unable to List branch")
             ret = { msg: "Unable to List Student Data" }
+            console.log(`list Stu Error : ${err}`)
         })
 
     await client.release();
