@@ -17,14 +17,14 @@ exports.removeUser = async function (req, res) {
     await client
         .query(`DELETE FROM user_table WHERE user_id=$1`, [user_id])
         .then(resData => {
-            res.status(200).send(` '${user_id}' Removed`);
+            res.status(200).send({msg : ` '${user_id}' Removed`});
             createlog(my_id, getuserType(my_level), log_message);
 
             ret=  { msg:"User removed"}
         })
         .catch(err => {
             console.error(err);
-            res.status(400).send(`User Not found`);
+            res.status(400).send({msg : `User Not found`});
 
             return {msg :"User not found"}
         });

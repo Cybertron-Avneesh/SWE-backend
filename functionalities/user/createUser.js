@@ -11,13 +11,12 @@ exports.createUser = async function (req, res) {
     const admin_level = req.body.admin_level;
     const my_id = req.body.my_id;
     const my_level = req.body.my_level;
-
+    // console.log(req)
 
     const log_message = `New ${getuserType(admin_level)}  :: ${user_id} Added By ${my_id}`;
     // console.log(log_message)
 
     // console.log(user_id, name, admin_level)
-    var ret;
     if (!user_id || !name || admin_level == undefined) {
 
         res.status(400).send({ msg: 'userID,name and Admin level are mandatory' });

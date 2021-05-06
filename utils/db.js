@@ -6,6 +6,7 @@ exports.Client = async function () {
         client = await pool.connect();
         return client;
     } catch (err) {
+        console.log(`${err}`)
         return res.status(503).end("Server Error,Please try again after some time");
     }
 }

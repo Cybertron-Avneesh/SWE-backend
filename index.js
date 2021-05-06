@@ -2,7 +2,7 @@ const { createdb } = require('./createDatabase.js');
 const { fillDummydata } = require('./dummydata.js');
 const { alterTable } = require('./alterTable.js');
 
-const { verifyUser } = require('./functionalities/auth/login.js');
+const { verifyUser,validateRequest } = require('./functionalities/auth/index.js');
 const { listUser } = require('./functionalities/user/listuser.js');
 const { createUser } = require('./functionalities/user/createUser.js');
 const { removeUser } = require('./functionalities/user/removeUser.js');
@@ -43,6 +43,10 @@ app.get('/createdb', createdb);
 app.get('/filldummydata', fillDummydata);
 app.get('/alterTable', alterTable);
 app.post('/login', verifyUser);
+app.use(validateRequest);
+app.get('',(req,res)=>{
+    res.status(200).end();
+})
 app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
 app.post('/user/list', listUser);
