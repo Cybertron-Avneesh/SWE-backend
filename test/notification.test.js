@@ -22,7 +22,7 @@ const res = {
 describe('Notifications  ', function () {
     it("verifies  add notifications", async function () {
 
-        const result = await app.Notification({ body: {my_id:"1",my_level:2,enrollment_id:"IIB2019000",description:"Test Data"}, query:{action:1}}, res);
+        const result = await app.Notification({ body: {my_id:"1",my_level:2,enrollment_id:"iib2019001",description:"Test Data"}, query:{action:1}}, res);
         //console.log(result);
         assert.deepEqual(result, { msg: "Notification Added" });
 
@@ -31,7 +31,7 @@ describe('Notifications  ', function () {
 
     it("verifies notifications listing ", async function () {
 
-        const result = await app.Notification({ body: {my_id:"1",my_level:2,enrollment_id:"IIB2019000"}, query:{action:2}}, res);
+        const result = await app.Notification({ body: {my_id:"1",my_level:2,enrollment_id:"iib2019001"}, query:{action:2}}, res);
         //console.log(result);
         assert.deepEqual(result, { msg: "Listing succesfull" });
 

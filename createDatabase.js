@@ -29,22 +29,22 @@ async function dropTable(table_name) {
 exports.createdb = async function (req, res) {
     try {
         client = await Client();
-        //Warning : Dropping sequence is imp as foreign key constraints may interfere
-      //  await dropTable('notification');
-        // await dropTable('logs');
-        // await dropTable('user_table');
-        // await dropTable('ldap');
-        // await dropTable('marks');
-        // await dropTable('results');
-        // await dropTable('fees');
-        // await dropTable('disciplinary_actions');
-        // await dropTable('student');
-        // await dropTable('course');
-        // await dropTable('semester');
-        // await dropTable('branch');
-        // await dropTable('program');
-
+       // Warning : Dropping sequence is imp as foreign key constraints may interfere
+       await dropTable('notification');
+        await dropTable('logs');
+        await dropTable('user_table');
+        await dropTable('ldap');
+        await dropTable('marks');
+        await dropTable('results');
         await dropTable('fees');
+        await dropTable('disciplinary_actions');
+        await dropTable('student');
+        await dropTable('course');
+        await dropTable('semester');
+        await dropTable('branch');
+        await dropTable('program');
+
+       await dropTable('fees');
 
 
         /* CREATING TABLES */
@@ -70,7 +70,7 @@ exports.createdb = async function (req, res) {
         //marks
         await createTable('CREATE TABLE marks(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,course_id VARCHAR(100) REFERENCES course(course_id),c1 INT,c2 INT,c3 INT);', 'marks');
         //results
-        await createTable('CREATE TABLE results(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,total_credits INT,gpa float)', 'results');
+        await createTable('CREATE TABLE results(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,total_credits INT,gpa float,medal VARCHAR(100))', 'results');
         //fees
         await createTable('CREATE TABLE fees(enrollment_id VARCHAR(100) REFERENCES student(enrollment_id),semester_number INT,fee_status INT, payment_date VARCHAR(100))', 'fees');
         //disciplinary_actions

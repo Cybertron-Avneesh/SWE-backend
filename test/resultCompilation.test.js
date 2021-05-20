@@ -18,52 +18,53 @@ const res = {
         return res;
     }
 }
-const newResult ={ 
-    
+const newResult = {
+
     body:
-     {
-     my_id :"1",
-     my_level:2,
-     semester_number:2,
-     total_credits:20,
-     sgpi:8.1,
-   // enrollment_id:"IIB2019055",
+    {
+        my_id: "1",
+        my_level: 2,
+        medal: "gold",
+        semester_number: 4,
+        total_credits: 20,
+        sgpi: 8.1,
+        enrollment_id: "iib2019001",
 
 
     },
-     query:{action:1}
-    
-    }
+    query: { action: 1 }
 
-    const listResult ={ 
-    
-        body:
-         {
-         my_id :"1",
-         my_level:2,
-         semester_number:2,
-    
-    
-        },
-         query:{action:2}
-        
-        }
-    const newInvalidResult ={ 
-    
-        body:
-         {
-         my_id :"1",
-         my_level:2,
-     
-     
-    
-    
-        },
-         query:{action:1}
-        
-        }
-    
-    
+}
+
+const listResult = {
+
+    body:
+    {
+        my_id: "1",
+        my_level: 2,
+        semester_number: 4,
+
+
+    },
+    query: { action: 2 }
+
+}
+const newInvalidResult = {
+
+    body:
+    {
+        my_id: "1",
+        my_level: 2,
+
+
+
+
+    },
+    query: { action: 1 }
+
+}
+
+
 
 
 
@@ -72,8 +73,8 @@ describe('Result Use case ', function () {
     it("verifies  add result function  with valid input", async function () {
 
         const result = await app.resultCompilation(newResult, res);
-        //console.log(result);
-        assert.deepEqual(result,  { msg: "results : Added" });
+      //  console.log(result);
+        assert.deepEqual(result, { msg: "results : Added" });
 
     });
 
@@ -85,7 +86,7 @@ describe('Result Use case ', function () {
 
     });
 
-   
+
 
 
 
