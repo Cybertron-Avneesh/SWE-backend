@@ -24,7 +24,7 @@ const newFee ={
      {
      my_id :"1",
      my_level:2,
-     enrollment_id:"IIB2019051",
+     enrollment_id:"iib2019001",
      semester_number:4,
      fee_status:0,
      payment_date:"12/4/12"
@@ -41,7 +41,7 @@ const updateStudent ={
      {
      my_id :"1",
      my_level:2,
-     enrollment_id:"IIB2019051",
+     enrollment_id:"iib2019001",
      semester_number:4,
      fee_status:1,
      payment_date:"12/4/10"
@@ -58,7 +58,7 @@ const updateStudent ={
          {
          my_id :"1",
          my_level:2,
-         enrollment_id:"IIB2019051",
+         enrollment_id:"iib2019001",
     
     
         },

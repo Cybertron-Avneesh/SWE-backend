@@ -50,3 +50,7 @@ mocha ./test/assessment.test.js
 echo "__________________________________________________________"
 
 mocha ./test/updateSemester.test.js
+
+echo "__________________________________________________________"
+
+mocha ./test/resultCompilation.test.js

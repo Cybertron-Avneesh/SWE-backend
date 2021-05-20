@@ -24,8 +24,8 @@ const newAssessment ={
      {
      my_id :"1",
      my_level:2,
-     enrollment_id:"IIB2019000",
-     course_id:"1111",
+     enrollment_id:"iib2019001",
+     course_id:"course_1",
      semester_number:2,
      c1:23,
      c2:11,
@@ -33,12 +33,25 @@ const newAssessment ={
 
 
     },
-    
+    query: { action: 1 }
     
     }
 
 
-
+    const listAssessment ={ 
+    
+        body:
+         {
+         my_id :"1",
+         my_level:2,
+         enrollment_id:"iib2019001",
+        
+    
+    
+        },
+        query: { action: 2 }
+        
+        }
 
 describe('Assessment Use case ', function () {
     it("verifies  add marks function  with valid input", async function () {
@@ -50,7 +63,15 @@ describe('Assessment Use case ', function () {
     });
 
 
-   
+    it("verifies  list marks function  with valid input", async function () {
+
+        const result = await app.assessment(listAssessment, res);
+        //console.log(result);
+        assert.deepEqual(result, { msg: "Listing succesfull" });
+
+    });
+
+
 
 
 

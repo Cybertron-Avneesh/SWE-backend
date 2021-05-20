@@ -10,9 +10,11 @@ exports.assessment = async function(req,res){
     my_id = req.body.my_id;
     my_level = req.body.my_level;
     if(action==1){
-        addAssessment(req,res);
+       var status=  addAssessment(req,res);
+       return status;
     }else if(action==2){
-        listAssessment(req,res);
+       var status= listAssessment(req,res);
+        return status;
     }
 }
 
@@ -36,7 +38,7 @@ async function addAssessment (req, res) {
             createlog(my_id, getuserType(my_level), log_message)
 
             ret = { msg: "marks added" }
-           // console.log(ret);
+          // console.log(ret);
         })
         .catch(err => {
             res.status(400).send("Unable to add result")
@@ -68,7 +70,7 @@ async function listAssessment(req,res){
         })
         .catch(err => {
             res.status(400).send("Unable to list marks")
-            // ret = { msg: "Listing unsuccessful" }
+             ret = { msg: "Listing unsuccessful" }
         })
     await client.release();
     return ret;

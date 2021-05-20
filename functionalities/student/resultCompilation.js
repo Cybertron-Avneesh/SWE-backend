@@ -10,9 +10,12 @@ exports.resultCompilation = async function (req, res) {
     my_id = req.body.my_id;
     my_level = req.body.my_level;
     if(action==1){
-        addResult(req,res);
+       var addResultStatus= addResult(req,res);
+       return addResultStatus;
     }else if(action==2){
-        listResult(req,res);
+
+        var listResultStatus= listResult(req,res);
+        return listResultStatus;
     }
 
 }
@@ -33,16 +36,19 @@ async function addResult(req,res){
             res.status(200).send(`Result added successfully`)
             createlog(my_id, getuserType(my_level), log_message)
 
-            //  ret = { msg: "Disciplinary action : Added" }
+             ret = { msg:"results : Added" }
            // console.log(ret);
         })
         .catch(err => {
             res.status(400).send("Unable to add result")
             console.log(`resultAddError : ${err}`)
-            //  ret = { msg: "error " }
+             ret = { msg: "error " }
 
         })
+     
     await client.release();
+    return ret;
+   
 }
 
 async function listResult(req, res) {

@@ -24,7 +24,7 @@ const newSem ={
      {
      my_id :"1",
      my_level:2,
-     program_id:"prog_3"
+     program_id:"prog_1"
    // enrollment_id:"IIB2019055",
 
 
